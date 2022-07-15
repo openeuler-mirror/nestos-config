@@ -1,0 +1,12 @@
+ref: openEuler/${basearch}/nestos/stable
+include: manifests/nestos.yaml
+
+releasever: "22.03"
+
+rojig:
+  license: MIT
+  name: nestos
+  summary: NestOS stable
+
+add-commit-metadata:
+  nestos.stream: stable

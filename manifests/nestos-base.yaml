@@ -63,15 +63,6 @@ postprocess:
     echo "u    sshd       -    sshd" > /usr/lib/sysusers.d/sshd.conf
     echo "u    rpc       -    rpc" > /usr/lib/sysusers.d/rpc.conf
     echo "u    rpcuser   -    rpcuser" > /usr/lib/sysusers.d/rpcuser.conf
-  # This will be dropped once rpm-ostree because module-aware.
-  # https://github.com/projectatomic/rpm-ostree/issues/1542#issuecomment-419684977
-  # https://github.com/projectatomic/rpm-ostree/issues/1435
-  - |
-    #!/usr/bin/env bash
-    set -xeuo pipefail
-    for x in /etc/yum.repos.d/*modular.repo; do
-      sed -i -e 's,enabled=[01],enabled=0,' ${x}
-    done
   # Enable SELinux booleans used by OpenShift
   - |
     #!/usr/bin/env bash
@@ -114,10 +105,12 @@ postprocess:
   # Set the fallback hostname to `localhost`. 
   - |
     #!/usr/bin/env bash
+    set -xeuo pipefail
     source /etc/os-release
     if [ -z "${DEFAULT_HOSTNAME:-}" ]; then
       echo 'DEFAULT_HOSTNAME=localhost' >> /usr/lib/os-release
     fi
+    cp -f /usr/lib/os-release /etc/os-release
 
 packages:
   # Container tooling

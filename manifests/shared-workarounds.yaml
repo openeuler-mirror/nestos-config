@@ -8,6 +8,13 @@ postprocess:
   - |
     #!/usr/bin/env bash
     set -xeuo pipefail
+    mkdir /etc/issue.d
+    export OSTREE_VERSION="$(tail -1 /etc/os-release)"
+    echo -e 'NAME="NestOS"\nVERSION="LTS"\nID="NestOS"\nVERSION_ID="LTS"\nPRETTY_NAME="NestOS LTS"\nANSI_COLOR="0;31"\nHOME_URL="http://nestos.org.cn"\nDOCUMENTATION_URL="http://nestos.org.cn"\nSUPPORT_URL="http://nestos.org.cn"\nBUG_REPORT_URL="http://nestos.org.cn"\nVARIANT="NestOS"\nVARIANT_ID=nestos\n' > /usr/lib/os-release
+    echo -e $OSTREE_VERSION >> /usr/lib/os-release 
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
     # Operate on RHCOS and FCOS. 
     source /etc/os-release
     if [[ ${NAME} =~ "Fedora" ]]; then

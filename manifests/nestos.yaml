@@ -12,12 +12,6 @@ lockfile-repos:
   - nestos
 
 packages:
-  - openEuler-release-nestos
-  - openEuler-repos-ostree
-  # Continue to include it in case users want to use it.
-  - openEuler-repos-modular
-  # the archive repo for more reliable package layering
-  - openEuler-repos-archive
   # CL ships this.
   - docker-engine
   # User metrics

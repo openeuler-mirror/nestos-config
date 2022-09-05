@@ -1,6 +1,6 @@
 [nestos]
-name= extra repository - $basearch
-baseurl=http://10.1.84.11/kojifiles/packages
+name= nestos repository - $basearch
+baseurl=http://ipaddress/kojifiles/packages
 enabled=1
 type=rpm-md
 gpgcheck=0

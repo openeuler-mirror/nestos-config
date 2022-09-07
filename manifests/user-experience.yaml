@@ -25,8 +25,5 @@ packages:
   - openssh-clients openssh-server
   # Container tooling
   - podman
-  - crio
-  - cri-tools
-  - docker-runc
   - skopeo
   - toolbox

@@ -1,7 +1,7 @@
 ref: openEuler/${basearch}/nestos/stable
 include: manifests/nestos.yaml
 
-releasever: "22.03"
+releasever: "22.09"
 
 rojig:
   license: MIT
@@ -10,3 +10,11 @@ rojig:
 
 add-commit-metadata:
   nestos.stream: stable
+
+
+
+remove-from-packages:
+  # Hopefully short-term hack -- see https://github.com/coreos/fedora-coreos-config/pull/1206#discussion_r705425869.
+  # This keeps the size down and ensures nothing tries to use it, preventing us
+  # from shedding the dep eventually.
+  - [cracklib-dicts, .*]

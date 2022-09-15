@@ -54,7 +54,11 @@ postprocess:
      #/usr/sbin/mpathconf --enable
     systemctl mask kdump.service
     systemctl mask multipathd.service
-            
+  - |
+    #!/usr/bin/env bash
+    # https://gitee.com/openeuler/nestos-config/issues/I5R05H?from=project-issue
+    rm -rf /usr/lib/locale/locale-archive
+    cp /usr/lib/locale/locale-archive.default /usr/lib/locale/locale-archive 
   - |
     #!/usr/bin/env bash
     rm -rf /etc/gshadow

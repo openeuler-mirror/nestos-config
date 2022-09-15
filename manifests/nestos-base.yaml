@@ -53,7 +53,7 @@ postprocess:
     #!/usr/bin/env bash
      #/usr/sbin/mpathconf --enable
     systemctl mask kdump.service
-    systemctl mask multipathd.service
+    #systemctl mask multipathd.service
   - |
     #!/usr/bin/env bash
     # https://gitee.com/openeuler/nestos-config/issues/I5R05H?from=project-issue

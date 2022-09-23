@@ -27,3 +27,8 @@ packages:
   - podman
   - skopeo
   - toolbox
+  # enable k8s
+  - libnetfilter_cthelper
+  - libnetfilter_cttimeout
+  - libnetfilter_queue
+  - conntrack-tools

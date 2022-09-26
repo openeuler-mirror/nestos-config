@@ -32,3 +32,4 @@ packages:
   - libnetfilter_cttimeout
   - libnetfilter_queue
   - conntrack-tools
+  - isula-build

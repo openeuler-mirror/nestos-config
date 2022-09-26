@@ -135,7 +135,7 @@ packages:
   # Remote IPC for podman
   - libvarlink-util
   # Minimal NFS client
-  - nfs-utils-nestos
+  - nfs-utils-min
   # Active Directory support
   - adcli
   # WireGuard https://github.com/coreos/fedora-coreos-tracker/issues/362

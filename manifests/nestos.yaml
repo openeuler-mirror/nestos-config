@@ -48,6 +48,12 @@ postprocess:
     fi
   # Users shouldn't be configuring `rpm-ostreed.conf`
   # https://github.com/coreos/fedora-coreos-tracker/issues/271
+    - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    echo "/usr/lib64/sssd/" >> /etc/ld.so.conf
+    ldconfig
+  # https://gitee.com/openeuler/NestOS/issues/I5W2E8?from=project-issue
   - |
     #!/usr/bin/env bash
     set -xeuo pipefail

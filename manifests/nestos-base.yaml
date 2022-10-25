@@ -20,6 +20,10 @@ initramfs-args:
   # Omit these since we don't use them
   - --omit=lvm
   - --omit=iscsi
+  - --omit=dm
+  - --omit=multipath
+  - --omit=coreos-multipath
+  - --omit=coreos-multipath-fix
 
 # Be minimal
 recommends: false
@@ -51,9 +55,7 @@ rpmdb: sqlite
 postprocess:
   - |
     #!/usr/bin/env bash
-     #/usr/sbin/mpathconf --enable
     systemctl mask kdump.service
-    #systemctl mask multipathd.service
   - |
     #!/usr/bin/env bash
     # https://gitee.com/openeuler/nestos-config/issues/I5R05H?from=project-issue

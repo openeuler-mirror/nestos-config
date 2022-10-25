@@ -73,8 +73,6 @@ remove-from-packages:
   # Drop NetworkManager support for ifcfg files, see also corresponding
   # overlay.d/14NetworkManager-plugins
   - [NetworkManager, /usr/lib64/NetworkManager/.*/libnm-settings-plugin-ifcfg-rh.so]
-  # overlay.d/05core/usr/lib/systemd/system/multipathd.service
-  - [multipath-tools, /usr/lib/systemd/system/multipathd.service]
 
 remove-files:
   # We don't ship man(1) or info(1)

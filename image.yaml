@@ -3,3 +3,4 @@
 # streams.
 include: image-base.yaml
 squashfs-compression: gzip
+ostree-format: oci

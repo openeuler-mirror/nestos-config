@@ -94,8 +94,6 @@ postprocess:
     cp -f /usr/lib/os-release /etc/os-release
 
 packages:
-  # Container tooling
-  - crun
   # Security
   - polkit
   # SSH

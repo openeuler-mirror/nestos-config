@@ -1,7 +1,7 @@
 ref: openEuler/${basearch}/nestos/stable
 include: manifests/nestos.yaml
 
-releasever: "22.09"
+releasever: "22.03-LTS-SP1"
 
 rojig:
   license: MIT
@@ -10,7 +10,3 @@ rojig:
 
 add-commit-metadata:
   nestos.stream: stable
-
-
-
-

@@ -16,6 +16,7 @@ packages:
   - gzip
   - tar
   - xz
+  - zstd
   # Improved MOTD experience
   - console-login-helper-messages-issuegen
   - console-login-helper-messages-profile
@@ -27,6 +28,7 @@ packages:
   - podman
   - skopeo
   - toolbox
+  - crun
   # enable k8s
   - libnetfilter_cthelper
   - libnetfilter_cttimeout

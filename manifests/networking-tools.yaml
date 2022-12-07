@@ -8,7 +8,6 @@ packages:
   # Interactive Networking configuration during coreos-install
   - NetworkManager-tui
   - NetworkManager-team 
- #teamd
   # Support for cloud quirks and dynamic config in real rootfs:
   - iproute 
   # Firewall manipulation

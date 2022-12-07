@@ -1,120 +1,14 @@
-# This manifest is a list of shared workarounds that are needed in both Fedora CoreOS
-# and downstreams (i.e. Red Hat CoreOS).
+# This manifest is a list of shared workarounds that are needed in NestOS
 
 postprocess:
-  # Put in the fix for multipathd.socket on releases that haven't been fixed yet.
-  # https://bugzilla.redhat.com/show_bug.cgi?id=2008098
-  # https://github.com/coreos/fedora-coreos-config/pull/1246
   - |
     #!/usr/bin/env bash
     set -xeuo pipefail
     mkdir /etc/issue.d
-    export OSTREE_VERSION="$(tail -1 /etc/os-release)"
-    echo -e 'NAME="NestOS"\nVERSION="LTS"\nID="NestOS"\nVERSION_ID="LTS"\nPRETTY_NAME="NestOS LTS"\nANSI_COLOR="0;31"\nHOME_URL="http://nestos.org.cn"\nDOCUMENTATION_URL="http://nestos.org.cn"\nSUPPORT_URL="http://nestos.org.cn"\nBUG_REPORT_URL="http://nestos.org.cn"\nVARIANT="NestOS"\nVARIANT_ID=nestos\n' > /usr/lib/os-release
-    echo -e $OSTREE_VERSION >> /usr/lib/os-release 
-  - |
-    #!/usr/bin/env bash
-    set -xeuo pipefail
-    # Operate on RHCOS and FCOS. 
+    export OSTREEVERSION="$(tail -1 /etc/os-release)"
     source /etc/os-release
-    if [[ ${NAME} =~ "Fedora" ]]; then
-        # FCOS: Only operate on releases before F36. The fix has landed
-        # in F36+ and there is no need for a workaround.
-        [ ${VERSION_ID} -le 35 ] || exit 0
-    else 
-        # RHCOS: The fix hasn't landed in any version of RHEL yet
-        true
-    fi
-    mkdir /usr/lib/systemd/system/multipathd.socket.d
-    cat > /usr/lib/systemd/system/multipathd.socket.d/50-start-conditions.conf <<'EOF'
-    # Temporary workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2008098
-    [Unit]
-    ConditionKernelCommandLine=!multipath=off
-    ConditionKernelCommandLine=!nompath
-    ConditionPathExists=/etc/multipath.conf
-    ConditionVirtualization=!container
-    EOF
-
-  # Put in the fix for multipathd.service in dracut on releases that haven't
-  # been fixed yet.
-  # https://github.com/dracutdevs/dracut/pull/1606
-  # https://github.com/coreos/fedora-coreos-config/pull/1233
-  - |
-    #!/usr/bin/env bash
-    set -xeuo pipefail
-    source /etc/os-release
-    if [[ ${NAME} =~ "Fedora" ]]; then
-        # FCOS: This fix hasn't landed in rawhide (F36) yet,
-        # but hopefully will soon.
-        [ ${VERSION_ID} -le 36 ] || exit 0
-    else 
-        # RHCOS: The fix hasn't landed in any version of RHEL yet
-        true
-    fi
-    mkdir /usr/lib/dracut/modules.d/36coreos-multipath-fix
-    cat > /usr/lib/dracut/modules.d/36coreos-multipath-fix/90-multipathd-remove-execstop.conf <<'EOF'
-    # Temporary workaround for https://github.com/dracutdevs/dracut/pull/1606.
-    [Service]
-    ExecStop=
-    EOF
-    cat > /usr/lib/dracut/modules.d/36coreos-multipath-fix/module-setup.sh <<'EOF'
-    #!/bin/bash
-    # -*- mode: shell-script; indent-tabs-mode: nil; sh-basic-offset: 4; -*-
-    # ex: ts=8 sw=4 sts=4 et filetype=sh
-    install() {
-        # Temporary workaround for https://github.com/dracutdevs/dracut/pull/1606.
-        mkdir -p "$systemdsystemunitdir/multipathd.service.d"
-        inst_simple "$moddir/90-multipathd-remove-execstop.conf" \
-        "$systemdsystemunitdir/multipathd.service.d/90-multipathd-remove-execstop.conf"
-    }
-    EOF
-    chmod +x /usr/lib/dracut/modules.d/36coreos-multipath-fix/module-setup.sh
-    cat > /usr/lib/dracut/modules.d/40network/module-setup.sh <<'EOF'
-    #!/bin/bash
-    
-    # called by dracut
-    check() {
-        return 255
-    }
-    
-    # called by dracut
-    depends() {
-        is_qemu_virtualized && echo -n "qemu-net "
-    
-        for module in network-wicked network-manager network-legacy; do
-            if dracut_module_included "$module"; then
-                network_handler="$module"
-                break
-            fi
-        done
-    
-        if [ -z "$network_handler" ]; then
-            if [[ -x $dracutsysrootdir$systemdsystemunitdir/wicked.service ]]; then
-                network_handler="network-wicked"
-            elif [[ -x $dracutsysrootdir/usr/libexec/nm-initrd-generator ]]; then
-                network_handler="network-manager"
-            else
-                network_handler="network-legacy"
-            fi
-        fi
-        echo "kernel-network-modules $network_handler"
-        return 0
-    }
-    
-    # called by dracut
-    installkernel() {
-        return 0
-    }
-
-    # called by dracut
-    install() {
-        inst_script "$moddir/netroot.sh" "/sbin/netroot"
-        inst_simple "$moddir/net-lib.sh" "/lib/net-lib.sh"
-        inst_hook pre-udev 50 "$moddir/ifname-genrules.sh"
-        inst_hook cmdline 91 "$moddir/dhcp-root.sh"
-        inst_multiple ip sed awk grep pgrep tr
-        inst_multiple -o arping arping2
-        dracut_need_initqueue
-    }
-    EOF
-    chmod +x /usr/lib/dracut/modules.d/40network/module-setup.sh
+    export K8SVERSION="VERSION="$OSTREE_VERSION""
+    echo -e 'NAME="NestOS"'> /usr/lib/os-release 
+    echo -e $K8SVERSION >> /usr/lib/os-release 
+    echo -e 'ID="NestOS"\nVERSION_ID="${releasever}"\nPRETTY_NAME="NestOS"\nANSI_COLOR="0;31"\nHOME_URL="https://nestos.openeuler.org/"\nDOCUMENTATION_URL="https://nestos.openeuler.org/"\nSUPPORT_URL="https://nestos.openeuler.org/"\nBUG_REPORT_URL="https://nestos.openeuler.org/"\nVARIANT="NestOS"\nVARIANT_ID=nestos\n' >> /usr/lib/os-release
+    echo -e $OSTREEVERSION >> /usr/lib/os-release 

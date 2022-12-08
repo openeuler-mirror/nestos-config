@@ -56,6 +56,7 @@ postprocess:
   - |
     #!/usr/bin/env bash
     systemctl mask kdump.service
+    systemctl mask mdmonitor.service
 
   # https://gitee.com/openeuler/nestos-config/issues/I5R05H?from=project-issue
   - |

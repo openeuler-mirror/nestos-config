@@ -5,7 +5,7 @@ packages:
   - bash-completion
   - coreutils
   - jq
-  #- nano
+  - wget
   - less
   - sudo
   - vim-minimal

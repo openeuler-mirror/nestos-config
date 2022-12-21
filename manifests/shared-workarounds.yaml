@@ -10,5 +10,5 @@ postprocess:
     export K8SVERSION="VERSION="$OSTREE_VERSION""
     echo -e 'NAME="NestOS"'> /usr/lib/os-release 
     echo -e $K8SVERSION >> /usr/lib/os-release 
-    echo -e 'ID="NestOS"\nVERSION_ID="${releasever}"\nPRETTY_NAME="NestOS"\nANSI_COLOR="0;31"\nHOME_URL="https://nestos.openeuler.org/"\nDOCUMENTATION_URL="https://nestos.openeuler.org/"\nSUPPORT_URL="https://nestos.openeuler.org/"\nBUG_REPORT_URL="https://nestos.openeuler.org/"\nVARIANT="NestOS"\nVARIANT_ID=nestos\n' >> /usr/lib/os-release
+    echo -e 'ID="NestOS"\nVERSION_ID="22.03-LTS-SP1"\nPRETTY_NAME="NestOS"\nANSI_COLOR="0;31"\nHOME_URL="https://nestos.openeuler.org/"\nDOCUMENTATION_URL="https://nestos.openeuler.org/"\nSUPPORT_URL="https://nestos.openeuler.org/"\nBUG_REPORT_URL="https://nestos.openeuler.org/"\nVARIANT="NestOS"\nVARIANT_ID=nestos\n' >> /usr/lib/os-release
     echo -e $OSTREEVERSION >> /usr/lib/os-release 

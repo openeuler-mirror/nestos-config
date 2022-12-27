@@ -8,10 +8,11 @@ postprocess:
     export OSTREEVERSION="$(tail -1 /etc/os-release)"
     source /etc/os-release
     export K8SVERSION="VERSION="$OSTREE_VERSION""
-    export PRETTY_NAME="PRETTY_NAME=NestOS "$OSTREE_VERSION""
+    export K8SPRETTY_NAME="PRETTY_NAME=\"NestOS $OSTREE_VERSION\""
     echo -e 'NAME="NestOS"'> /usr/lib/os-release 
     echo -e $K8SVERSION >> /usr/lib/os-release 
-    echo -e 'ID="NestOS"\nVERSION_ID="22.03-LTS-SP1"\n"'
-    echo -e $PRETTY_NAME >> /usr/lib/os-release
+    echo -e 'ID="NestOS"\nVERSION_ID="22.03-LTS-SP1"\n' >> /usr/lib/os-release
+    echo -e $K8SPRETTY_NAME >> /usr/lib/os-release
     echo -e 'ANSI_COLOR="0;31"\nHOME_URL="https://nestos.openeuler.org/"\nDOCUMENTATION_URL="https://nestos.openeuler.org/"\nSUPPORT_URL="https://nestos.openeuler.org/"\nBUG_REPORT_URL="https://nestos.openeuler.org/"\nVARIANT="NestOS"\nVARIANT_ID=nestos\n' >> /usr/lib/os-release
     echo -e $OSTREEVERSION >> /usr/lib/os-release 
+    

@@ -1,0 +1,8 @@
+#!/bin/bash
+# Provided by Leon Wang @CTyunOS
+echo -n "Please Set Username:"
+read username
+pass=`openssl passwd -1 -salt $username`
+sudo sed -e "s,USER,$username,g" -e "s,PASS,$pass,g" /etc/sysconfig/ignition.tmpl > /root/myign.ign
+sudo nestos-installer install /dev/sda --ignition-file /root/myign.ign
+[[ $? == 0 ]] && sudo rm /root/myign.ign && sudo systemctl reboot

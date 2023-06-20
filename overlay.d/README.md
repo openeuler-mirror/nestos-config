@@ -17,6 +17,11 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1700056
 
 Warning about `/etc/sysconfig`.
 
+11install
+---------
+
+Scripts and config template for quickly installing OS on hard disk
+
 14NetworkManager-plugins
 ------------------------
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Provided by Leon Wang @CTyunOS
 # Modified by ccdxx @kylinos
-echo -n "Notice: The default install location is /dev/sda "
+echo -n "Notice: The default install location is /dev/sda"
 echo -n "Please Set Username:"
 read username
 echo -n "Please Set Password" 

@@ -1,7 +1,10 @@
 #!/bin/bash
 # Provided by Leon Wang @CTyunOS
+# Modified by ccdxx @kylinos
+echo -n "Notice: The default install location is /dev/sda "
 echo -n "Please Set Username:"
 read username
+echo -n "Please Set Password" 
 pass=`openssl passwd -1 -salt $username`
 sudo sed -e "s,USER,$username,g" -e "s,PASS,$pass,g" /etc/sysconfig/ignition.tmpl > /root/myign.ign
 sudo nestos-installer install /dev/sda --ignition-file /root/myign.ign

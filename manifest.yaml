@@ -1,7 +1,7 @@
 ref: openEuler/${basearch}/nestos/stable
 include: manifests/nestos.yaml
 
-releasever: "22.03-LTS-SP1"
+releasever: "22.03-LTS-SP2"
 
 rojig:
   license: MIT

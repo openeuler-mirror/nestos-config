@@ -50,6 +50,9 @@ that configuration persist into the installed system by passing the
 '--copy-network' argument to 'nestos-installer install'. Please run
 'nestos-installer install --help' for more information on the possible
 install options.
+
+If you want a quick install,you can also use the `sudo installnestos` command
+for a guided install instead of the above.
 ###########################################################################
 
 EOF

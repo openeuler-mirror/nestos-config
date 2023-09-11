@@ -1,4 +1,4 @@
-# File intended to be sourced by shell script generators shipped with CoreOS systems
+# File intended to be sourced by shell script generators shipped with NestOS systems
 
 # Generators don't have logging right now
 # https://github.com/systemd/systemd/issues/15638

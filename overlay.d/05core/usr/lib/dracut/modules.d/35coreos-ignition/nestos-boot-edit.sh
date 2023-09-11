@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# For a description of how this is used, see `coreos-boot-edit.service`.
+# For a description of how this is used, see `nestos-boot-edit.service`.
 
 cmdline=( $(</proc/cmdline) )
 karg() {
@@ -22,7 +22,7 @@ bootdev=/dev/disk/by-label/boot
 mount -o rw ${bootdev} ${bootmnt}
 
 # Clean up firstboot networking config files if the user copied them into the
-# installed system (most likely by using `coreos-installer install --copy-network`).
+# installed system (most likely by using `nestos-installer install --copy-network`).
 firstboot_network_dir_basename="coreos-firstboot-network"
 initramfs_firstboot_network_dir="${bootmnt}/${firstboot_network_dir_basename}"
 rm -vrf ${initramfs_firstboot_network_dir}
@@ -46,6 +46,6 @@ if [ -z "${boot}" ]; then
     fi
     rdcore kargs --boot-mount ${bootmnt} --append boot=UUID=${UUID}
     # but also put it in /run for the first boot real root mount
-    mkdir -p /run/coreos
-    echo "${UUID}" > /run/coreos/bootfs_uuid
+    mkdir -p /run/nestos
+    echo "${UUID}" > /run/nestos/bootfs_uuid
 fi

@@ -7,7 +7,7 @@ packages:
   - afterburn afterburn-dracut
   # NTP support
   - chrony
-  # Installing CoreOS itself
+  # Installing NestOS itself
   - nestos-installer nestos-installer-bootinfra
   # Storage configuration/management
   ## cloud-utils-growpart - For growing root partition

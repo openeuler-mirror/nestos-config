@@ -10,7 +10,7 @@
 # [1] https://github.com/coreos/ignition-dracut/blob/26f2396b116286dcb46644dc157e4211aea3aba5/dracut/99journald-conf/00-journal-log-forwarding.conf#L2
 # [2] https://github.com/coreos/fedora-coreos-tracker/issues/136
 
-# See also 10-coreos-ratelimit-kmsg.conf, which turns ratelimiting back *on*
+# See also 10-nestos-ratelimit-kmsg.conf, which turns ratelimiting back *on*
 # in the real root.
 
 check() {

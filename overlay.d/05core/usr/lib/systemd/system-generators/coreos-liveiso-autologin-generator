@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-. /usr/lib/coreos/generator-lib.sh
+. /usr/lib/nestos/generator-lib.sh
 
 write_dropin() {
     local service="$1"; shift

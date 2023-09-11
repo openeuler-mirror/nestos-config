@@ -49,10 +49,10 @@ install() {
     cp "$moddir/coreos-kargs.sh" "$initdir$binpath"
     install_ignition_unit coreos-kargs-reboot.service
 
-    inst_script "$moddir/coreos-boot-edit.sh" \
-        "/usr/sbin/coreos-boot-edit"
+    inst_script "$moddir/nestos-boot-edit.sh" \
+        "/usr/sbin/nestos-boot-edit"
     # Only start when the system has disks since we are editing /boot.
-    install_ignition_unit "coreos-boot-edit.service" \
+    install_ignition_unit "nestos-boot-edit.service" \
         "ignition-diskful.target"
 
     install_ignition_unit coreos-ignition-setup-user.service

@@ -1,7 +1,7 @@
 05core
 -----
 
-This overlay matches `fedora-coreos-base.yaml`; core Ignition+ostree bits.
+This overlay matches `nestos-base.yaml`; core Ignition+ostree bits.
 
 08nouveau
 ---------
@@ -30,12 +30,12 @@ Disables the Red Hat Linux legacy `ifcfg` format.
 15fcos
 ------
 
-Things that are more closely "Fedora CoreOS":
+Things that are more closely "NestOS":
 
 * disable password logins by default over SSH
 * enable SSH keys written by Ignition and Afterburn
 * branding (MOTD)
-* enable services by default (fedora-coreos-pinger)
+* enable services by default 
 * display warnings on the console if no ignition config was provided or no ssh
   key found.
 

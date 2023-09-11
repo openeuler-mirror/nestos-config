@@ -5,7 +5,7 @@
 packages:
   # Standard tools for configuring network/hostname
   - NetworkManager hostname
-  # Interactive Networking configuration during coreos-install
+  # Interactive Networking configuration during nestos-install
   - NetworkManager-tui
   - NetworkManager-team 
   # Support for cloud quirks and dynamic config in real rootfs:

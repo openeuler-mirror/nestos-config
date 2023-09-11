@@ -1,6 +1,6 @@
 These files will be copied to the target live ISO
-via the CoreOS Assembler buildextend-live call. It
-picks up all files in the coreos/NestOS-config/live/
+via the NestOS Assembler buildextend-live call. It
+picks up all files in the nestos-config/live/
 directory and copies them to the base of the ISO. 
 
 Files currently copied are:

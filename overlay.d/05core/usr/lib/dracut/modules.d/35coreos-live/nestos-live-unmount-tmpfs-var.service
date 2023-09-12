@@ -21,4 +21,4 @@ After=ignition-mount.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/sbin/coreos-live-unmount-tmpfs-var
+ExecStart=/usr/sbin/nestos-live-unmount-tmpfs-var

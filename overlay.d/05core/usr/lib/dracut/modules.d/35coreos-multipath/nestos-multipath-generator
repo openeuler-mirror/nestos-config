@@ -23,8 +23,8 @@ add_requires() {
 }
 
 if getargbool 0 rd.multipath; then
-    add_requires coreos-multipath-wait.target initrd.target
+    add_requires nestos-multipath-wait.target initrd.target
     if ! getargbool 0 ignition.firstboot; then
-        add_requires coreos-multipath-trigger.service initrd.target
+        add_requires nestos-multipath-trigger.service initrd.target
     fi
 fi

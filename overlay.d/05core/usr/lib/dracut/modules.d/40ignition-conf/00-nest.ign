@@ -5,8 +5,8 @@
   "passwd": {
     "users": [
       {
-        "name": "core",
-        "gecos": "CoreOS Admin",
+        "name": "nest",
+        "gecos": "NestOS Admin",
         "groups": [
           "adm",
           "sudo",

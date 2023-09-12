@@ -1,1 +1,1 @@
-`00-core.ign` is the base config shared between FCOS and RHCOS. The configs specific to FCOS are in [50ignition-conf-fcos](../../../../../../15fcos/usr/lib/dracut/modules.d/50ignition-conf-fcos).
+`00-nest.ign` is the base config of NestOS. The configs specific to NestOS are in [50ignition-conf-fcos](../../../../../../15fcos/usr/lib/dracut/modules.d/50ignition-conf-fcos).

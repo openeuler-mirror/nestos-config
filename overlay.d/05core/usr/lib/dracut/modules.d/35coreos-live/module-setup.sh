@@ -35,13 +35,13 @@ install() {
     inst_simple "$moddir/nestos-live-unmount-tmpfs-var.sh" \
         "/usr/sbin/nestos-live-unmount-tmpfs-var"
 
-    inst_simple "$moddir/coreos-livepxe-rootfs.sh" \
-        "/usr/sbin/coreos-livepxe-rootfs"
+    inst_simple "$moddir/nestos-livepxe-rootfs.sh" \
+        "/usr/sbin/nestos-livepxe-rootfs"
 
     install_and_enable_unit "nestos-live-unmount-tmpfs-var.service" \
         "initrd-switch-root.target"
 
-    install_and_enable_unit "coreos-livepxe-rootfs.service" \
+    install_and_enable_unit "nestos-livepxe-rootfs.service" \
         "initrd-root-fs.target"
 
     install_and_enable_unit "nestos-live-clear-sssd-cache.service" \
@@ -50,6 +50,6 @@ install() {
     install_and_enable_unit "nestos-liveiso-persist-osmet.service" \
         "default.target"
 
-    install_and_enable_unit "coreos-livepxe-persist-osmet.service" \
+    install_and_enable_unit "nestos-livepxe-persist-osmet.service" \
         "default.target"
 }

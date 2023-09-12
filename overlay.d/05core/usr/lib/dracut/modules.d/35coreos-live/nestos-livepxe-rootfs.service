@@ -18,4 +18,4 @@ OnFailureJobMode=isolate
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/sbin/coreos-livepxe-rootfs
+ExecStart=/usr/sbin/nestos-livepxe-rootfs

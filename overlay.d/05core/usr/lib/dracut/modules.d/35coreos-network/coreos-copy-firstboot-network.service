@@ -36,7 +36,7 @@ Before=dracut-initqueue.service
 After=dracut-cmdline.service
 # Any services looking at mounts need to order after this
 # because it causes device re-probing.
-After=coreos-gpt-setup.service
+After=nestos-gpt-setup.service
 # Since we are mounting /boot/, require the device first
 Requires=dev-disk-by\x2dlabel-boot.device
 After=dev-disk-by\x2dlabel-boot.device

@@ -11,8 +11,8 @@ Before=ignition-fetch-offline.service
 OnFailure=emergency.target
 OnFailureJobMode=isolate
 
-# On diskful boots, coreos-diskful-generator adds Requires/After on
-# dev-disk-by\x2dlabel-boot.device and coreos-gpt-setup.service
+# On diskful boots, nestos-diskful-generator adds Requires/After on
+# dev-disk-by\x2dlabel-boot.device and nestos-gpt-setup.service
 
 [Service]
 Type=oneshot
@@ -20,4 +20,4 @@ RemainAfterExit=yes
 # The MountFlags=slave is so the umount of /boot is guaranteed to happen
 # /boot will only be mounted for the lifetime of the unit.
 MountFlags=slave
-ExecStart=/usr/sbin/coreos-ignition-setup-user
+ExecStart=/usr/sbin/nestos-ignition-setup-user

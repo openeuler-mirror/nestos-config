@@ -7,7 +7,7 @@ ConditionKernelCommandLine=ostree
 ConditionPathIsDirectory=/run/ignition-ostree-transposefs
 # Any services looking at mounts need to order after this
 # because it causes device re-probing.
-After=coreos-gpt-setup.service
+After=nestos-gpt-setup.service
 OnFailure=emergency.target
 OnFailureJobMode=isolate
 

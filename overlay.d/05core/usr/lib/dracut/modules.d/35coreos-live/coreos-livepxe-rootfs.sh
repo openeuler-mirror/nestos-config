@@ -49,7 +49,7 @@ elif [[ -n "${rootfs_url}" ]]; then
     # We don't need to verify TLS certificates because we're checking the
     # image hash.
     # bsdtar can read cpio archives and we already depend on it for
-    # coreos-liveiso-persist-osmet.service, so use it instead of cpio.
+    # nestos-liveiso-persist-osmet.service, so use it instead of cpio.
     # We shouldn't need a --retry here since we've just successfully HEADed the
     # file, but let's add one just to be safe (e.g. if the connection just went
     # online and flickers or something).

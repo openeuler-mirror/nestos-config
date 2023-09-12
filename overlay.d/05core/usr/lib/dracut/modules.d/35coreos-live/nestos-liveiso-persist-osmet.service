@@ -2,7 +2,7 @@
 Description=Persist osmet files (ISO)
 DefaultDependencies=false
 ConditionPathExists=/run/ostree-live
-ConditionKernelCommandLine=coreos.liveiso
+ConditionKernelCommandLine=nestos.liveiso
 RequiresMountsFor=/run/media/iso
 Before=initrd-switch-root.target
 

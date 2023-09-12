@@ -81,7 +81,7 @@ fi
 
 # Autologin on ISO boots but not PXE boots.  The only way to tell the
 # difference is a kernel argument.
-if ! have_karg coreos.liveiso; then
+if ! have_karg nestos.liveiso; then
     exit 0
 fi
 

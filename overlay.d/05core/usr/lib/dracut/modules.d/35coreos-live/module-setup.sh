@@ -47,7 +47,7 @@ install() {
     install_and_enable_unit "nestos-live-clear-sssd-cache.service" \
         "ignition-complete.target"
 
-    install_and_enable_unit "coreos-liveiso-persist-osmet.service" \
+    install_and_enable_unit "nestos-liveiso-persist-osmet.service" \
         "default.target"
 
     install_and_enable_unit "coreos-livepxe-persist-osmet.service" \

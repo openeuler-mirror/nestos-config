@@ -3,7 +3,7 @@ Description=Acquire live PXE rootfs image
 DefaultDependencies=false
 ConditionPathExists=/usr/lib/initrd-release
 ConditionPathExists=/run/ostree-live
-ConditionKernelCommandLine=!coreos.liveiso
+ConditionKernelCommandLine=!nestos.liveiso
 
 After=basic.target
 # Network is enabled here

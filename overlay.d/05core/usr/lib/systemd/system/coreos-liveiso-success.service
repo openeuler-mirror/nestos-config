@@ -5,7 +5,7 @@
 Description=CoreOS Live ISO virtio success
 Documentation=https://github.com/coreos/fedora-coreos-config
 # Only run on the Live ISO, and only if there's no Ignition config
-ConditionKernelCommandLine=coreos.liveiso
+ConditionKernelCommandLine=nestos.liveiso
 ConditionPathExists=!/config.ign
 ConditionVirtualization=|kvm
 ConditionVirtualization=|qemu

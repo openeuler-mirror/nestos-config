@@ -50,7 +50,7 @@ ExecStartPre=/usr/sbin/ostree-cmdline start
 ExecStartPost=/usr/sbin/ostree-cmdline stop
 EOF
 
-isoroot=$(getarg coreos.liveiso= ||:)
+isoroot=$(getarg nestos.liveiso= ||:)
 if [ -z "${isoroot}" ]; then
     # In this case, the rootfs is already unpacked into the initrd, or we need
     # to retrieve it

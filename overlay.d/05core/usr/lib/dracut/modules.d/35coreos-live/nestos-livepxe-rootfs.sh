@@ -6,14 +6,14 @@ set -euo pipefail
 # Get rootfs_url karg
 set +euo pipefail
 . /usr/lib/dracut-lib.sh
-rootfs_url=$(getarg coreos.live.rootfs_url=)
+rootfs_url=$(getarg nestos.live.rootfs_url=)
 set -euo pipefail
 
-if [[ -f /etc/coreos-live-rootfs ]]; then
+if [[ -f /etc/nestos-live-rootfs ]]; then
     # rootfs image was injected via PXE.  Verify that the initramfs and
     # rootfs versions match.
-    initramfs_ver=$(cat /etc/coreos-live-initramfs)
-    rootfs_ver=$(cat /etc/coreos-live-rootfs)
+    initramfs_ver=$(cat /etc/nestos-live-initramfs)
+    rootfs_ver=$(cat /etc/nestos-live-rootfs)
     if [[ $initramfs_ver != $rootfs_ver ]]; then
         echo "Found initramfs version $initramfs_ver but rootfs version $rootfs_ver." >&2
         echo "Please fix your PXE configuration." >&2
@@ -27,7 +27,7 @@ elif [[ -n "${rootfs_url}" ]]; then
         # Don't commit to supporting protocols we might not want to expose in
         # the long term.
         echo "Unsupported scheme for image specified by:" >&2
-        echo "coreos.live.rootfs_url=${rootfs_url}" >&2
+        echo "nestos.live.rootfs_url=${rootfs_url}" >&2
         echo "Only HTTP and HTTPS are supported. Please fix your PXE configuration." >&2
         exit 1
     fi
@@ -41,7 +41,7 @@ elif [[ -n "${rootfs_url}" ]]; then
     curl_common_args="--silent --show-error --insecure --location"
     while ! curl --head $curl_common_args "${rootfs_url}" >/dev/null; do
         echo "Couldn't establish connectivity with the server specified by:" >&2
-        echo "coreos.live.rootfs_url=${rootfs_url}" >&2
+        echo "nestos.live.rootfs_url=${rootfs_url}" >&2
         echo "Retrying in 5s..." >&2
         sleep 5
     done
@@ -54,17 +54,17 @@ elif [[ -n "${rootfs_url}" ]]; then
     # file, but let's add one just to be safe (e.g. if the connection just went
     # online and flickers or something).
     if ! curl $curl_common_args --retry 5 "${rootfs_url}" | \
-            rdcore stream-hash /etc/coreos-live-want-rootfs | \
+            rdcore stream-hash /etc/nestos-live-want-rootfs | \
             bsdtar -xf - -C / ; then
         echo "Couldn't fetch, verify, and unpack image specified by:" >&2
-        echo "coreos.live.rootfs_url=${rootfs_url}" >&2
+        echo "nestos.live.rootfs_url=${rootfs_url}" >&2
         echo "Check that the URL is correct and that the rootfs version matches the initramfs." >&2
         exit 1
     fi
 else
     # Nothing.  Fail.
     echo "No rootfs image found.  Modify your PXE configuration to add the rootfs" >&2
-    echo "image as a second initrd, or use the coreos.live.rootfs_url kernel parameter" >&2
+    echo "image as a second initrd, or use the nestos.live.rootfs_url kernel parameter" >&2
     echo "to specify an HTTP or HTTPS URL to the rootfs." >&2
     exit 1
 fi

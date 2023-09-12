@@ -115,7 +115,7 @@ Where=/sysroot
 Type=squashfs
 # Offset of the squashfs within the rootfs cpio.  Assumes newc format
 # and that a file named "root.squashfs" is the first member.  This offset
-# is checked by coreos-assembler cmd-buildextend-live at build time.
+# is checked by nestos-assembler cmd-buildextend-live at build time.
 Options=loop,offset=124
 EOF
 fi

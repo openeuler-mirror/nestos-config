@@ -7,10 +7,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=1963242
 
 [Unit]
-Description=CoreOS Trigger Multipath
+Description=NestOS Trigger Multipath
 DefaultDependencies=false
-Requires=coreos-multipath-wait.target
-After=coreos-multipath-wait.target
+Requires=nestos-multipath-wait.target
+After=nestos-multipath-wait.target
 Before=cryptsetup-pre.target
 
 [Service]

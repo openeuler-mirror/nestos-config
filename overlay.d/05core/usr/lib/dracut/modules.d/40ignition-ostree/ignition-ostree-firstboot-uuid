@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 # https://github.com/coreos/fedora-coreos-tracker/issues/465
-# coreos-assembler generates disk images which are installed bit-for-bit
+# nestos-assembler generates disk images which are installed bit-for-bit
 # or booted directly in the cloud.
 # Generate new UUID on firstboot; this is general best practice, but in the future
 # we may use this for mounting by e.g. adding a boot=<uuid> and root=<uuid> kernel args.

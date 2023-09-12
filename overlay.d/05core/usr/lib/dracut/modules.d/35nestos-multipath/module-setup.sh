@@ -12,10 +12,10 @@ install_ignition_unit() {
 }
 
 install() {
-    inst_script "$moddir/coreos-propagate-multipath-conf.sh" \
-        "/usr/sbin/coreos-propagate-multipath-conf"
+    inst_script "$moddir/nestos-propagate-multipath-conf.sh" \
+        "/usr/sbin/nestos-propagate-multipath-conf"
 
-    install_ignition_unit coreos-propagate-multipath-conf.service subsequent
+    install_ignition_unit nestos-propagate-multipath-conf.service subsequent
 
     inst_simple "$moddir/nestos-multipath-generator" \
         "$systemdutildir/system-generators/nestos-multipath-generator"

@@ -1,5 +1,5 @@
 [Unit]
-Description=CoreOS Propagate Multipath Configuration
+Description=NestOS Propagate Multipath Configuration
 Before=initrd.target
 
 # we write to the rootfs, so run after it's ready
@@ -17,5 +17,5 @@ OnFailureJobMode=isolate
 
 [Service]
 Type=oneshot
-ExecStart=/usr/sbin/coreos-propagate-multipath-conf
+ExecStart=/usr/sbin/nestos-propagate-multipath-conf
 RemainAfterExit=yes

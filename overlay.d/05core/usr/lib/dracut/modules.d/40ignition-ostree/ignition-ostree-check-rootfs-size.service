@@ -1,6 +1,5 @@
 [Unit]
 Description=Ignition OSTree: Check Root Filesystem Size
-Documentation=https://docs.fedoraproject.org/en-US/fedora-coreos/storage/
 DefaultDependencies=false
 ConditionKernelCommandLine=ostree
 ConditionPathExists=!/run/ostree-live
@@ -9,5 +8,5 @@ After=ostree-prepare-root.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/libexec/coreos-check-rootfs-size
+ExecStart=/usr/libexec/nestos-check-rootfs-size
 RemainAfterExit=yes

@@ -103,7 +103,7 @@ propagate_initramfs_networking() {
             else
                 echo "info: propagating initramfs networking config to the real root"
                 cp -v /run/NetworkManager/system-connections/* /sysroot/etc/NetworkManager/system-connections/
-                coreos-relabel /etc/NetworkManager/system-connections/
+                nestos-relabel /etc/NetworkManager/system-connections/
             fi
         else
             echo "info: no initramfs networking information to propagate"
@@ -132,7 +132,7 @@ propagate_initramfs_hostname() {
         hostname=$(</run/NetworkManager/initrd/hostname)
         echo "info: propagating initramfs hostname (${hostname}) to the real root"
         echo $hostname > /sysroot/etc/hostname
-        coreos-relabel /etc/hostname
+        nestos-relabel /etc/hostname
     else
         echo "info: no initramfs hostname information to propagate"
     fi

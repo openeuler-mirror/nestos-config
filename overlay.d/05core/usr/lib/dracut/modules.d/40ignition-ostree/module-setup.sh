@@ -11,7 +11,6 @@ install_ignition_unit() {
     local target=${1:-complete}
     inst_simple "$moddir/$unit" "$systemdsystemunitdir/$unit"
     # note we `|| exit 1` here so we error out if e.g. the units are missing
-    # see https://github.com/coreos/fedora-coreos-config/issues/799
     systemctl -q --root="$initdir" add-requires "ignition-${target}.target" "$unit" || exit 1
 }
 
@@ -89,16 +88,16 @@ install() {
     install_ignition_unit ignition-ostree-mount-subsequent-sysroot.service diskful-subsequent
     inst_script "$moddir/ignition-ostree-mount-sysroot.sh" \
         "/usr/sbin/ignition-ostree-mount-sysroot"
-    inst_script "$moddir/coreos-rootflags.sh" \
-        "/usr/sbin/coreos-rootflags"
+    inst_script "$moddir/nestos-rootflags.sh" \
+        "/usr/sbin/nestos-rootflags"
 
     install_ignition_unit ignition-ostree-growfs.service
     inst_script "$moddir/ignition-ostree-growfs.sh" \
         /usr/sbin/ignition-ostree-growfs
 
     install_ignition_unit ignition-ostree-check-rootfs-size.service
-    inst_script "$moddir/coreos-check-rootfs-size" \
-        /usr/libexec/coreos-check-rootfs-size
+    inst_script "$moddir/nestos-check-rootfs-size" \
+        /usr/libexec/nestos-check-rootfs-size
 
-    inst_script "$moddir/coreos-relabel" /usr/bin/coreos-relabel
+    inst_script "$moddir/nestos-relabel" /usr/bin/nestos-relabel
 }

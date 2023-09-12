@@ -10,8 +10,8 @@ if [ ! -f /sysroot/etc/multipath.conf ] && [ -f /etc/multipath.conf ]; then
     echo "info: propagating automatic multipath configuration"
     cp -v /etc/multipath.conf /sysroot/etc/
     mkdir -p /sysroot/etc/multipath/multipath.conf.d
-    coreos-relabel /etc/multipath.conf
-    coreos-relabel /etc/multipath/multipath.conf.d
+    nestos-relabel /etc/multipath.conf
+    nestos-relabel /etc/multipath/multipath.conf.d
 else
     echo "info: no initramfs automatic multipath configuration to propagate"
 fi

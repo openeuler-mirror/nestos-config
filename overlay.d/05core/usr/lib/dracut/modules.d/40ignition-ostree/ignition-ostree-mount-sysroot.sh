@@ -15,4 +15,4 @@ if ! [ -b "${rootpath}" ]; then
 fi
 
 echo "Mounting ${rootpath} ($(realpath "${rootpath}")) to /sysroot"
-mount -o "$(coreos-rootflags)" "${rootpath}" /sysroot
+mount -o "$(nestos-rootflags)" "${rootpath}" /sysroot

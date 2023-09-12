@@ -46,8 +46,8 @@ install() {
     # dracut inst_script doesn't allow overwrites and we are replacing
     # the default script placed by Ignition
     binpath="/usr/sbin/ignition-kargs-helper"
-    cp "$moddir/coreos-kargs.sh" "$initdir$binpath"
-    install_ignition_unit coreos-kargs-reboot.service
+    cp "$moddir/nestos-kargs.sh" "$initdir$binpath"
+    install_ignition_unit nestos-kargs-reboot.service
 
     inst_script "$moddir/nestos-boot-edit.sh" \
         "/usr/sbin/nestos-boot-edit"

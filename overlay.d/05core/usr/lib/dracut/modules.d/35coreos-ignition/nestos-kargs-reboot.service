@@ -1,7 +1,7 @@
 [Unit]
-Description=CoreOS Kernel Arguments Reboot
+Description=NestOS Kernel Arguments Reboot
 ConditionPathExists=/etc/initrd-release
-ConditionPathExists=/run/coreos-kargs-reboot
+ConditionPathExists=/run/nestos-kargs-reboot
 DefaultDependencies=false
 Before=ignition-complete.target
  

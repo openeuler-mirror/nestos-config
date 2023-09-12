@@ -31,27 +31,27 @@ dracut_func() {
 # something extra.
 are_default_NM_configs() {
     # Make two dirs for storing files to use in the comparison
-    mkdir -p /run/coreos-teardown-initramfs/connections-compare-{1,2}
+    mkdir -p /run/nestos-teardown-initramfs/connections-compare-{1,2}
     # Make another that's just a throwaway for the initrd-data-dir
-    mkdir -p /run/coreos-teardown-initramfs/initrd-data-dir
+    mkdir -p /run/nestos-teardown-initramfs/initrd-data-dir
     # Copy over the previously generated connection(s) profiles
     cp  /run/NetworkManager/system-connections/* \
-        /run/coreos-teardown-initramfs/connections-compare-1/
+        /run/nestos-teardown-initramfs/connections-compare-1/
     # Do a new run with the default input
     /usr/libexec/nm-initrd-generator \
-        -c /run/coreos-teardown-initramfs/connections-compare-2 \
-        -i /run/coreos-teardown-initramfs/initrd-data-dir -- ip=dhcp,dhcp6
+        -c /run/nestos-teardown-initramfs/connections-compare-2 \
+        -i /run/nestos-teardown-initramfs/initrd-data-dir -- ip=dhcp,dhcp6
     # remove unique identifiers from the files (so our diff can work)
-    sed -i '/^uuid=/d' /run/coreos-teardown-initramfs/connections-compare-{1,2}/*
+    sed -i '/^uuid=/d' /run/nestos-teardown-initramfs/connections-compare-{1,2}/*
     # currently the output will differ based on whether rd.neednet=1
     # was part of the kargs. Let's ignore the single difference (wait-device-timeout)
-    sed -i '/^wait-device-timeout=/d' /run/coreos-teardown-initramfs/connections-compare-{1,2}/*
-    if diff -r -q /run/coreos-teardown-initramfs/connections-compare-{1,2}/; then
+    sed -i '/^wait-device-timeout=/d' /run/nestos-teardown-initramfs/connections-compare-{1,2}/*
+    if diff -r -q /run/nestos-teardown-initramfs/connections-compare-{1,2}/; then
         rc=0 # They are the default configs
     else
         rc=1 # They are not the defaults, user must have added configuration
     fi
-    rm -rf /run/coreos-teardown-initramfs
+    rm -rf /run/nestos-teardown-initramfs
     return $rc
 }
 

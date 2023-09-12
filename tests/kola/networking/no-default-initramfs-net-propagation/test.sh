@@ -15,7 +15,7 @@ fatal() {
     exit 1
 }
 
-if ! journalctl -t coreos-teardown-initramfs | \
+if ! journalctl -t nestos-teardown-initramfs | \
        grep 'info: skipping propagation of default networking configs'; then
     echo "no log message claiming to skip initramfs network propagation" >&2
     fail=1

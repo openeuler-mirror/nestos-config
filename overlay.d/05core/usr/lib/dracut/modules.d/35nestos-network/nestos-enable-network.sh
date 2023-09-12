@@ -15,7 +15,7 @@ dracut_func() {
 
 # If networking hasn't been requested yet, request it.
 if ! dracut_func getargbool 0 'rd.neednet'; then
-    echo "rd.neednet=1" > /etc/cmdline.d/40-coreos-neednet.conf
+    echo "rd.neednet=1" > /etc/cmdline.d/40-nestos-neednet.conf
 
     # Hack: we need to rerun the NM cmdline hook because we run after
     # dracut-cmdline.service because we need udev. We should be able to move

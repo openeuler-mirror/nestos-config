@@ -1,6 +1,6 @@
 # This unit will run early in boot and detect if the user copied
 # in firstboot networking config files into the installed system
-# (most likely by using `coreos-installer install --copy-network`).
+# (most likely by using `nestos-installer install --copy-network`).
 # Since this unit is modifying network configuration there are some
 # dependencies that we have:
 #
@@ -26,7 +26,7 @@
 # [3] https://github.com/dracutdevs/dracut/blob/master/modules.d/35network-manager/module-setup.sh#L34
 #
 [Unit]
-Description=Copy CoreOS Firstboot Networking Config
+Description=Copy NestOS Firstboot Networking Config
 ConditionPathExists=/usr/lib/initrd-release
 DefaultDependencies=false
 Before=ignition-diskful.target
@@ -43,10 +43,10 @@ After=dev-disk-by\x2dlabel-boot.device
 # And since the boot device may be on multipath; optionally wait for it to
 # appear via the dynamic target.
 After=nestos-multipath-wait.target
-# Need to run after coreos-enable-network since it may re-run the NM cmdline
+# Need to run after nestos-enable-network since it may re-run the NM cmdline
 # hook which will generate NM configs from the network kargs, but we want to
 # have precedence.
-After=coreos-enable-network.service
+After=nestos-enable-network.service
 # We've seen races with ignition-kargs.service, which accesses /boot rw.
 # Let's introduce some ordering here. Need to use `Before` because otherwise
 # we get a systemd ordering cycle. https://github.com/coreos/fedora-coreos-tracker/issues/883
@@ -58,4 +58,4 @@ RemainAfterExit=yes
 # The MountFlags=slave is so the umount of /boot is guaranteed to happen
 # /boot will only be mounted for the lifetime of the unit.
 MountFlags=slave
-ExecStart=/usr/sbin/coreos-copy-firstboot-network
+ExecStart=/usr/sbin/nestos-copy-firstboot-network

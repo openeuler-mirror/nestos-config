@@ -1,12 +1,12 @@
 #!/bin/bash
 set -euo pipefail
 
-# For a description of how this is used see coreos-copy-firstboot-network.service
+# For a description of how this is used see nestos-copy-firstboot-network.service
 
 bootmnt=/mnt/boot_partition
 mkdir -p ${bootmnt}
 bootdev=/dev/disk/by-label/boot
-firstboot_network_dir_basename="coreos-firstboot-network"
+firstboot_network_dir_basename="nestos-firstboot-network"
 initramfs_firstboot_network_dir="${bootmnt}/${firstboot_network_dir_basename}"
 initramfs_network_dir="/run/NetworkManager/system-connections/"
 realroot_firstboot_network_dir="/boot/${firstboot_network_dir_basename}"
@@ -21,7 +21,7 @@ if [ -n "$(ls -A ${initramfs_firstboot_network_dir} 2>/dev/null)" ]; then
     # Clear out any files that may have already been generated from
     # kargs by nm-initrd-generator
     rm -f ${initramfs_network_dir}/*
-    # Copy files that were placed into boot (most likely by coreos-installer)
+    # Copy files that were placed into boot (most likely by nestos-installer)
     # to the appropriate location for NetworkManager to use the configuration.
     echo "info: copying files from ${initramfs_firstboot_network_dir} to ${initramfs_network_dir}"
     mkdir -p ${initramfs_network_dir}

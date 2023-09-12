@@ -8,16 +8,16 @@ install_and_enable_unit() {
 }
 
 install() {
-    inst_simple "$moddir/coreos-enable-network.sh" \
-        "/usr/sbin/coreos-enable-network"
-    install_and_enable_unit "coreos-enable-network.service" \
+    inst_simple "$moddir/nestos-enable-network.sh" \
+        "/usr/sbin/nestos-enable-network"
+    install_and_enable_unit "nestos-enable-network.service" \
         "initrd.target"
 
-    inst_simple "$moddir/coreos-copy-firstboot-network.sh" \
-        "/usr/sbin/coreos-copy-firstboot-network"
+    inst_simple "$moddir/nestos-copy-firstboot-network.sh" \
+        "/usr/sbin/nestos-copy-firstboot-network"
     # Only run this when ignition runs and only when the system
     # has disks. ignition-diskful.target should suffice.
-    install_and_enable_unit "coreos-copy-firstboot-network.service" \
+    install_and_enable_unit "nestos-copy-firstboot-network.service" \
         "ignition-diskful.target"
 
     # Dropin with firstboot network configuration kargs, applied via

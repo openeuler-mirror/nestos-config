@@ -5,7 +5,7 @@ ConditionPathExists=/usr/lib/initrd-release
 ConditionKernelCommandLine=ostree
 ConditionPathExists=!/run/ostree-live
 # We run pretty early
-Before=coreos-copy-firstboot-network.service
+Before=nestos-copy-firstboot-network.service
 Before=nestos-ignition-setup-user.service
 Before=ignition-fetch-offline.service
 # Any services looking at mounts need to order after this

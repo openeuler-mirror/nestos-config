@@ -1,5 +1,5 @@
 [Unit]
-Description=CoreOS Enable Network
+Description=NestOS Enable Network
 ConditionPathExists=/etc/initrd-release
 DefaultDependencies=false
 After=basic.target
@@ -18,7 +18,7 @@ After=ignition-fetch-offline.service
 # Needs networking
 Before=ignition-fetch.service
 
-# See hack in coreos-enable-network, as well as coreos-copy-firstboot-network.service.
+# See hack in nestos-enable-network, as well as nestos-copy-firstboot-network.service.
 After=dracut-cmdline.service
 Before=nm-initrd.service
 # compat: remove when everyone is on dracut 054+
@@ -27,4 +27,4 @@ Before=dracut-initqueue.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/sbin/coreos-enable-network
+ExecStart=/usr/sbin/nestos-enable-network

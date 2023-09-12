@@ -8,6 +8,6 @@ depends() {
 
 install() {
     mkdir -p "$initdir/usr/lib/ignition/base.d"
-    inst "$moddir/00-core.ign" \
-        "/usr/lib/ignition/base.d/00-core.ign"
+    inst "$moddir/00-nest.ign" \
+        "/usr/lib/ignition/base.d/00-nest.ign"
 }

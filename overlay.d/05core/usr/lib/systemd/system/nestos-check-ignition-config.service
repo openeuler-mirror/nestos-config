@@ -7,7 +7,7 @@ ConditionPathExists=/etc/.ignition-result.json
 
 [Service]
 Type=oneshot
-ExecStart=/usr/libexec/coreos-check-ignition-config
+ExecStart=/usr/libexec/nestos-check-ignition-config
 RemainAfterExit=yes
 
 [Install]

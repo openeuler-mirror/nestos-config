@@ -4,9 +4,9 @@
 enable console-login-helper-messages-gensnippet-os-release.service
 enable console-login-helper-messages-gensnippet-ssh-keys.service
 # CA certs (probably to add to base fedora eventually)
-enable coreos-update-ca-trust.service
+enable nestos-update-ca-trust.service
 # https://github.com/coreos/ignition/issues/1125
-enable coreos-ignition-firstboot-complete.service
+enable nestos-ignition-firstboot-complete.service
 # Boot checkin services for cloud providers.
 enable afterburn-checkin.service
 enable afterburn-firstboot-checkin.service
@@ -15,7 +15,7 @@ enable afterburn-sshkeys.target
 # Update agent
 enable zincati.service
 # Testing aid
-enable coreos-liveiso-success.service
+enable nestos-liveiso-success.service
 # See bootupd.yaml
 enable bootupd.socket
 # Enable rtas_errd for ppc64le to discover dynamically attached pci devices - https://bugzilla.redhat.com/show_bug.cgi?id=1811537
@@ -24,4 +24,4 @@ enable bootupd.socket
 enable rtas_errd.service
 enable clevis-luks-askpass.path
 # Provide information if no ignition is provided
-enable coreos-check-ignition-config.service
+enable nestos-check-ignition-config.service

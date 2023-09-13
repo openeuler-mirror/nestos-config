@@ -11,8 +11,8 @@ install() {
     mkdir -p "$initdir/usr/lib/ignition/base.platform.d"
 
     # Common entries
-    inst "$moddir/30-afterburn-sshkeys-core.ign" \
-        "/usr/lib/ignition/base.d/30-afterburn-sshkeys-core.ign"
+    inst "$moddir/30-afterburn-sshkeys-nest.ign" \
+        "/usr/lib/ignition/base.d/30-afterburn-sshkeys-nest.ign"
 
     # Platform specific: aws
     mkdir -p "$initdir/usr/lib/ignition/base.platform.d/aws"

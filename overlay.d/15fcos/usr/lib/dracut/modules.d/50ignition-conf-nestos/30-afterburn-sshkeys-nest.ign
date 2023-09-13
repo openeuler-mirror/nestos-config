@@ -6,7 +6,7 @@
     "units": [
       {
         "enabled": true,
-        "name": "afterburn-sshkeys@core.service"
+        "name": "afterburn-sshkeys@nest.service"
       }
     ]
   }

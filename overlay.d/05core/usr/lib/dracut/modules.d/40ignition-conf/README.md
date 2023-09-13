@@ -1,1 +1,1 @@
-`00-nest.ign` is the base config of NestOS. The configs specific to NestOS are in [50ignition-conf-fcos](../../../../../../15fcos/usr/lib/dracut/modules.d/50ignition-conf-fcos).
+`00-nest.ign` is the base config of NestOS. The configs specific to NestOS are in [50ignition-conf-nestos](../../../../../../15fcos/usr/lib/dracut/modules.d/50ignition-conf-nestos).

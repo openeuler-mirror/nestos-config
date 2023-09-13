@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-port=/dev/virtio-ports/com.coreos.ignition.journal
+port=/dev/virtio-ports/com.nestos.ignition.journal
 if [ -e "${port}" ]; then
     # Sync to backing filesystem before dumping what's there
     journalctl --sync

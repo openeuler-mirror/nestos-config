@@ -6,7 +6,7 @@ set -euo pipefail
 
 # Turn out if you boot with "root=..." $UNIT_DIR is not writable.
 [ -w "${UNIT_DIR}" ] || {
-    echo "skipping coreos-boot-mount-generator: ${UNIT_DIR} is not writable"
+    echo "skipping nestos-boot-mount-generator: ${UNIT_DIR} is not writable"
     exit 0
 }
 
@@ -44,10 +44,9 @@ mk_mount() {
     local unit_name=$(systemd-escape -p ${mount_pt} --suffix=mount)
 
     cat > "${UNIT_DIR}/${unit_name}" <<EOF
-# Automatically created by coreos-boot-mount-generator
+# Automatically created by nestos-boot-mount-generator
 [Unit]
-Description=CoreOS Dynamic Mount for ${mount_pt}
-Documentation=https://github.com/coreos/fedora-coreos-config
+Description=NestOS Dynamic Mount for ${mount_pt}
 
 Before=local-fs.target
 Requires=systemd-fsck@${devservice}
@@ -84,7 +83,7 @@ label_uuid_to_dev() {
 }
 
 # If the root device is multipath, hook up /boot to use that too,
-# based on our custom udev rules in 90-coreos-device-mapper.rules
+# based on our custom udev rules in 90-nestos-device-mapper.rules
 # that creates "label found on mpath" links.
 # Otherwise, use the usual by-label symlink.
 # See discussion in https://github.com/coreos/fedora-coreos-config/pull/1022

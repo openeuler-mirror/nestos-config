@@ -1,4 +1,4 @@
-# CoreOS-specific symlinks for dm-multipath filesystem labels,
+# NestOS-specific symlinks for dm-multipath filesystem labels,
 # used for `label=boot` and `label=root`.
 
 ACTION=="remove", GOTO="dm_label_end"

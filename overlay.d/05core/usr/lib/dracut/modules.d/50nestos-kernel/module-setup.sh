@@ -11,5 +11,5 @@ install() {
     inst_multiple \
         false
 
-    install_unit "coreos-check-kernel.service" "sysinit.target"
+    install_unit "nestos-check-kernel.service" "sysinit.target"
 }

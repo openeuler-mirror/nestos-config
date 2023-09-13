@@ -70,7 +70,7 @@ install() {
     done
 
     inst_simple \
-        /usr/lib/udev/rules.d/90-coreos-device-mapper.rules
+        /usr/lib/udev/rules.d/90-nestos-device-mapper.rules
 
     inst_multiple jq chattr
     inst_script "$moddir/ignition-ostree-transposefs.sh" "/usr/libexec/ignition-ostree-transposefs"

@@ -1,6 +1,5 @@
 [Unit]
-Description=CoreOS Mark Ignition Boot Complete
-Documentation=https://docs.fedoraproject.org/en-US/fedora-coreos/
+Description=NestOS Mark Ignition Boot Complete
 ConditionKernelCommandLine=ignition.firstboot
 ConditionPathExists=!/run/ostree-live
 RequiresMountsFor=/boot
@@ -14,7 +13,7 @@ RemainAfterExit=yes
 # everything else, /boot stays readonly. We only have a transient writable mount
 # for the lifetime of the unit.
 MountFlags=slave
-ExecStart=/usr/libexec/coreos-ignition-firstboot-complete
+ExecStart=/usr/libexec/nestos-ignition-firstboot-complete
 
 [Install]
 # Part of basic.target so this happens early on in firstboot

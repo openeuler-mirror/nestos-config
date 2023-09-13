@@ -11,14 +11,14 @@ fatal() {
             exit 1
         }
 
-# Make sure that coreos-update-ca-trust kicked in and observe the result.
-if ! systemctl show coreos-update-ca-trust.service -p ActiveState | grep ActiveState=active; then
-    fatal "coreos-update-ca-trust.service not active"
+# Make sure that nestos-update-ca-trust kicked in and observe the result.
+if ! systemctl show nestos-update-ca-trust.service -p ActiveState | grep ActiveState=active; then
+    fatal "nestos-update-ca-trust.service not active"
 fi
-if ! grep '^# coreos.com$' /etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt; then
-    fatal "expected coreos.com in ca-bundle"
+if ! grep '^# nestos.com$' /etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt; then
+    fatal "expected nestos.com in ca-bundle"
 fi
-ok "coreos-update-ca-trust.service"
+ok "nestos-update-ca-trust.service"
 
 # Make sure that the stub-resolv.conf file has the correct selinux context.
 # https://github.com/fedora-selinux/selinux-policy/pull/509#issuecomment-744540382

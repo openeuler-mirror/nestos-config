@@ -17,5 +17,5 @@ install() {
         touch
 
     # TODO f35: check if we can drop this whole module
-    install_unit coreos-touch-run-agetty.service
+    install_unit nestos-touch-run-agetty.service
 }

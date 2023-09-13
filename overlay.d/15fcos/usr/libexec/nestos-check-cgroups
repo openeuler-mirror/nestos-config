@@ -19,7 +19,7 @@ to use cgroups v2, see:
 https://docs.fedoraproject.org/en-US/fedora-coreos/kernel-args/
 
 To disable this warning, use:
-sudo systemctl disable coreos-check-cgroups.service
+sudo systemctl disable nestos-check-cgroups.service
 ############################################################################
 ${nc}
 EOF

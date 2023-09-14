@@ -8,9 +8,7 @@ Wants=systemd-udevd.service
 After=systemd-udevd.service
 
 # This unit must be the first to run when the disk holding the root partition
-# becomes available. To avoid relying on the name of the root partition which
-# is different between RHCOS LUKS setup and current FCOS setup, we wait for the
-# partition labeled 'boot' to become available. This is reliable as we don't
+# becomes available. This is reliable as we don't
 # have any plan to support re-provisioning/re-writing the /boot partition,
 #
 # This is the only unit where it is safe to wait only on a specific disk label

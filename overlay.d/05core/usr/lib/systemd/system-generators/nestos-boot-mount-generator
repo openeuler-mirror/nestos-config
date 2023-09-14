@@ -10,7 +10,7 @@ set -euo pipefail
     exit 0
 }
 
-# If there's already an /etc/fstab entries for /boot, then this is is a non-FCOS
+# If there's already an /etc/fstab entries for /boot, then this is is a non-NestOS
 # system, likely RHCOS pre-4.3 (which still used Anaconda).  In that case, we
 # don't want to overwrite what the systemd-fstab-generator will do.
 if findmnt --fstab /boot &>/dev/null; then

@@ -3,19 +3,7 @@
 
 This overlay matches `nestos-base.yaml`; core Ignition+ostree bits.
 
-08nouveau
----------
 
-Blacklist the nouveau driver because it causes issues with some NVidia GPUs in EC2,
-and we don't have a use case for FCOS with nouveau.
-
-"Cannot boot an p3.2xlarge instance with RHCOS (g3.4xlarge is working)"
-https://bugzilla.redhat.com/show_bug.cgi?id=1700056
-
-09misc
-------
-
-Warning about `/etc/sysconfig`.
 
 11install
 ---------
@@ -27,7 +15,7 @@ Scripts and config template for quickly installing OS on hard disk
 
 Disables the Red Hat Linux legacy `ifcfg` format.
 
-15fcos
+15nestos
 ------
 
 Things that are more closely "NestOS":

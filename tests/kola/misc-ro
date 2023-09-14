@@ -80,7 +80,7 @@ if [ -n "$sudoers_files" ]; then
 fi
 
 # See https://github.com/coreos/coreos-assembler/pull/1786
-path=/usr/lib/systemd/system-generators/coreos-platform-chrony
+path=/usr/lib/systemd/system-generators/nestos-platform-chrony
 mode=$(stat -c '%a' ${path})
 if test "${mode}" != 555; then
     fatal "For path ${path} expected mode 555, found ${mode}"

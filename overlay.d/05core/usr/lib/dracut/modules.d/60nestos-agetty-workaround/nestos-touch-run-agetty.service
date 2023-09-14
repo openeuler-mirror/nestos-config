@@ -1,5 +1,4 @@
 # Temporary hack to work around agetty SELinux denials.
-# https://github.com/coreos/fedora-coreos-config/pull/859#issuecomment-783713383
 # https://bugzilla.redhat.com/show_bug.cgi?id=1932053
 [Unit]
 Description=NestOS: Touch /run/agetty.reload

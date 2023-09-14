@@ -71,8 +71,7 @@ are_default_NM_configs() {
 # See https://github.com/coreos/fedora-coreos-tracker/issues/394#issuecomment-599721173
 propagate_initramfs_networking() {
     # Check for any real root config in the two locations where a user could have
-    # provided network configuration. On FCOS we only support keyfiles, but on RHCOS
-    # we support keyfiles and ifcfg
+    # provided network configuration. On NestOS we only support keyfiles, 
     if [ -n "$(ls -A /sysroot/etc/NetworkManager/system-connections/)" -o \
          -n "$(ls -A /sysroot/etc/sysconfig/network-scripts/)" ]; then
         echo "info: networking config is defined in the real root"
@@ -87,9 +86,9 @@ propagate_initramfs_networking() {
     # Hopefully we only need this in rare circumstances.
     # https://github.com/coreos/fedora-coreos-tracker/issues/853
     forcepropagate=0
-    if dracut_func getargbool 0 'coreos.force_persist_ip'; then
+    if dracut_func getargbool 0 'nestos.force_persist_ip'; then
         forcepropagate=1
-        echo "info: coreos.force_persist_ip detected: will force network config propagation"
+        echo "info: nestos.force_persist_ip detected: will force network config propagation"
     fi
 
     if [ $realrootconfig == 1 -a $forcepropagate == 0 ]; then
@@ -195,9 +194,9 @@ main() {
 
     # Hopefully our logic is sound enough that this is never needed, but
     # user's can explicitly disable initramfs network/hostname propagation
-    # with the coreos.no_persist_ip karg.
-    if dracut_func getargbool 0 'coreos.no_persist_ip'; then
-        echo "info: coreos.no_persist_ip karg detected"
+    # with the nestos.no_persist_ip karg.
+    if dracut_func getargbool 0 'nestos.no_persist_ip'; then
+        echo "info: nestos.no_persist_ip karg detected"
         echo "info: skipping propagating initramfs settings"
     else
         propagate_initramfs_hostname

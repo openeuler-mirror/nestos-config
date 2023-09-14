@@ -1,6 +1,5 @@
 [Unit]
-Description=CoreOS Ignition User Config Setup
-Documentation=https://github.com/coreos/ignition
+Description=NestOS Ignition User Config Setup
 ConditionPathExists=/etc/initrd-release
 DefaultDependencies=false
 

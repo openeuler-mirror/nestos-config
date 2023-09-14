@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-# Test the coreos-platform-chrony generator.
+# Test the nestos-platform-chrony generator.
 
 # kola: { "platforms": "aws,azure,gcp" }
 

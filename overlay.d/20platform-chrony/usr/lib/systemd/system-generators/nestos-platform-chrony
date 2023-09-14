@@ -16,7 +16,7 @@ set -euo pipefail
 exec 1>/dev/kmsg; exec 2>&1
 
 self=$(basename $0)
-confpath=/run/coreos-platform-chrony.conf
+confpath=/run/nestos-platform-chrony.conf
 
 # Yeah this isn't a completely accurate kernel argument parser but
 # we don't have one shared across shell services at the moment.
@@ -86,7 +86,7 @@ chcon --reference=/etc/chrony.conf "${confpath}"
 
 UNIT_DIR="${1:-/tmp}"
 
-unitconfpath="${UNIT_DIR}/chronyd.service.d/coreos-platform-chrony.conf"
+unitconfpath="${UNIT_DIR}/chronyd.service.d/nestos-platform-chrony.conf"
 mkdir -p $(dirname "${unitconfpath}")
 cat >"${unitconfpath}" << EOF
 [Service]

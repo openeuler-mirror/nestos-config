@@ -22,8 +22,7 @@ initramfs-args:
   - --omit=iscsi
   - --omit=dm
   - --omit=multipath
-  - --omit=coreos-multipath
-  - --omit=coreos-multipath-fix
+  - --omit=nestos-multipath
 
 # Be minimal
 recommends: false

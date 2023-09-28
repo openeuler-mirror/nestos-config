@@ -1,7 +1,0 @@
-[nestos]
-name= nestos repository - $basearch
-baseurl=http://ipaddress/kojifiles/packages
-enabled=1
-type=rpm-md
-gpgcheck=0
-

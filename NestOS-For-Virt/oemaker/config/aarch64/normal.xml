@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE comps 
+        PUBLIC '-//openEuler//DTD Comps info//EN'
+        'comps.dtd'>
+<comps>
+    <group>
+        <id>core</id>
+        <name>core</name>
+        <name xml:lang="zh_CN">core</name>
+        <name>core</name>
+        <name xml:lang="zh_CN">core</name>
+        <default>true</default>
+        <uservisible>false</uservisible>
+        <packagelist>
+            <packagereq type="default">openEuler-NestOS-For-Virt-release</packagereq>
+            <packagereq type="default">acl</packagereq>
+            <packagereq type="default">at</packagereq>
+            <packagereq type="default">attr</packagereq>
+            <packagereq type="default">audispd-plugins</packagereq>
+            <packagereq type="default">audispd-plugins-zos</packagereq>
+            <packagereq type="default">audit</packagereq>
+            <packagereq type="default">audit-libs</packagereq>
+            <packagereq type="default">authselect</packagereq>
+            <packagereq type="default">basesystem</packagereq>
+            <packagereq type="default">bash</packagereq>
+            <packagereq type="default">bash-completion</packagereq>
+            <packagereq type="default">bc</packagereq>
+            <packagereq type="default">bpftool</packagereq>
+            <packagereq type="default">bridge-utils</packagereq>
+            <packagereq type="default">bzip2</packagereq>
+            <packagereq type="default">chrony</packagereq>
+            <packagereq type="default">cifs-utils</packagereq>
+            <packagereq type="default">coreutils</packagereq>
+            <packagereq type="default">cpio</packagereq>
+            <packagereq type="default">cronie</packagereq>
+            <packagereq type="default">crontabs</packagereq>
+            <packagereq type="default">cryptsetup</packagereq>
+            <packagereq type="default">curl</packagereq>
+            <packagereq type="default">cyrus-sasl</packagereq>
+            <packagereq type="default">dbus</packagereq>
+            <packagereq type="default">dhcp</packagereq>
+            <packagereq type="default">dnf</packagereq>
+            <packagereq type="default">dnf-plugins-core</packagereq>
+            <packagereq type="default">dnsmasq</packagereq>
+            <packagereq type="default">dos2unix</packagereq>
+            <packagereq type="default">dosfstools</packagereq>
+            <packagereq type="default">dracut</packagereq>
+            <packagereq type="default">dracut-caps</packagereq>
+            <packagereq type="default">dracut-config-generic</packagereq>
+            <packagereq type="default">dracut-config-rescue</packagereq>
+            <packagereq type="default">dracut-live</packagereq>
+            <packagereq type="default">dracut-network</packagereq>
+            <packagereq type="default">dracut-squash</packagereq>
+            <packagereq type="default">dracut-tools</packagereq>
+            <packagereq type="default">e2fsprogs</packagereq>
+            <packagereq type="default">ed</packagereq>
+            <packagereq type="default">efibootmgr</packagereq>
+            <packagereq type="default">file</packagereq>
+            <packagereq type="default">filesystem</packagereq>
+            <packagereq type="default">firewalld</packagereq>
+            <packagereq type="default">freeradius</packagereq>
+            <packagereq type="default">glibc</packagereq>
+            <packagereq type="default">gnupg2</packagereq>
+            <packagereq type="default">gnutls</packagereq>
+            <packagereq type="default">gnutls-utils</packagereq>
+            <packagereq type="default">golang-github-prometheus-node_exporter</packagereq>
+            <packagereq type="default">grub2-common</packagereq>
+            <packagereq type="default">grub2-efi-aa64</packagereq>
+            <packagereq type="default">grub2-efi-aa64-cdboot</packagereq>
+            <packagereq type="default">grub2-efi-aa64-modules</packagereq>
+            <packagereq type="default">grub2-tools</packagereq>
+            <packagereq type="default">grub2-tools-extra</packagereq>
+            <packagereq type="default">grub2-tools-minimal</packagereq>
+            <packagereq type="default">grubby</packagereq>
+            <packagereq type="default">gvfs</packagereq>
+            <packagereq type="default">gzip</packagereq>
+            <packagereq type="default">hostname</packagereq>
+            <packagereq type="default">ima-evm-utils</packagereq>
+            <packagereq type="default">initial-setup</packagereq>
+            <packagereq type="default">initscripts</packagereq>
+            <packagereq type="default">ipmitool</packagereq>
+            <packagereq type="default">iproute</packagereq>
+            <packagereq type="default">iprutils</packagereq>
+            <packagereq type="default">ipset</packagereq>
+            <packagereq type="default">iptables</packagereq>
+            <packagereq type="default">iptraf-ng</packagereq>
+            <packagereq type="default">iptstate</packagereq>
+            <packagereq type="default">iputils</packagereq>
+            <packagereq type="default">irqbalance</packagereq>
+            <packagereq type="default">kbd</packagereq>
+            <packagereq type="default">kexec-tools</packagereq>
+            <packagereq type="default">kmod</packagereq>
+            <packagereq type="default">kmod-libs</packagereq>
+            <packagereq type="default">kpatch</packagereq>
+            <packagereq type="default">less</packagereq>
+            <packagereq type="default">libgudev</packagereq>
+            <packagereq type="default">libldb</packagereq>
+            <packagereq type="default">libmaxminddb</packagereq>
+            <packagereq type="default">libselinux</packagereq>
+            <packagereq type="default">libsemanage</packagereq>
+            <packagereq type="default">libstoragemgmt</packagereq>
+            <packagereq type="default">libteam</packagereq>
+            <packagereq type="default">libtirpc</packagereq>
+            <packagereq type="default">libtpms</packagereq>
+            <packagereq type="default">libtpms-devel</packagereq>
+            <packagereq type="default">libvirt</packagereq>
+            <packagereq type="default">libvirt-admin</packagereq>
+            <packagereq type="default">libvirt-bash-completion</packagereq>
+            <packagereq type="default">libvirt-client</packagereq>
+            <packagereq type="default">libvirt-daemon</packagereq>
+            <packagereq type="default">libvirt-daemon-config-network</packagereq>
+            <packagereq type="default">libvirt-daemon-config-nwfilter</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-interface</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-network</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-nodedev</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-nwfilter</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-qemu</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-secret</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-storage</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-storage-core</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-storage-disk</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-storage-gluster</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-storage-iscsi</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-storage-iscsi-direct</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-storage-logical</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-storage-mpath</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-storage-rbd</packagereq>
+            <packagereq type="default">libvirt-daemon-driver-storage-scsi</packagereq>
+            <packagereq type="default">libvirt-daemon-kvm</packagereq>
+            <packagereq type="default">libvirt-daemon-qemu</packagereq>
+            <packagereq type="default">libvirt-devel</packagereq>
+            <packagereq type="default">libvirt-docs</packagereq>
+            <packagereq type="default">libvirt-libs</packagereq>
+            <packagereq type="default">libvirt-lock-sanlock</packagereq>
+            <packagereq type="default">libvirt-nss</packagereq>
+            <packagereq type="default">linux-firmware</packagereq>
+            <packagereq type="default">logrotate</packagereq>
+            <packagereq type="default">lshw</packagereq>
+            <packagereq type="default">lsof</packagereq>
+            <packagereq type="default">lsscsi</packagereq>
+            <packagereq type="default">lvm2</packagereq>
+            <packagereq type="default">man-db</packagereq>
+            <packagereq type="default">man-pages</packagereq>
+            <packagereq type="default">mdadm</packagereq>
+            <packagereq type="default">mlocate</packagereq>
+            <packagereq type="default">ncurses</packagereq>
+            <packagereq type="default">NestOS-kernel</packagereq>
+            <packagereq type="default">NestOS-kernel-devel</packagereq>
+            <packagereq type="default">NestOS-kernel-headers</packagereq>
+            <packagereq type="default">NestOS-kernel-tools</packagereq>
+            <packagereq type="default">NestOS-For-Virt-repos</packagereq>
+            <packagereq type="default">nettle</packagereq>
+            <packagereq type="default">NetworkManager</packagereq>
+            <packagereq type="default">NetworkManager-config-server</packagereq>
+            <packagereq type="default">nfs-utils</packagereq>
+            <packagereq type="default">nmap</packagereq>
+            <packagereq type="default">ntfs-3g</packagereq>
+            <packagereq type="default">open-iscsi</packagereq>
+            <packagereq type="default">openssh</packagereq>
+            <packagereq type="default">openssh-clients</packagereq>
+            <packagereq type="default">openssh-server</packagereq>
+            <packagereq type="default">openvswitch</packagereq>
+            <packagereq type="default">parted</packagereq>
+            <packagereq type="default">passwd</packagereq>
+            <packagereq type="default">pciutils</packagereq>
+            <packagereq type="default">PilotGo-agent</packagereq>
+            <packagereq type="default">PilotGo-plugin-topology-agent</packagereq>
+            <packagereq type="default">pinfo</packagereq>
+            <packagereq type="default">policycoreutils</packagereq>
+            <packagereq type="default">polkit</packagereq>
+            <packagereq type="default">procps-ng</packagereq>
+            <packagereq type="default">psacct</packagereq>
+            <packagereq type="default">python3-audit</packagereq>
+            <packagereq type="default">python3-cffi</packagereq>
+            <packagereq type="default">python3-kmod</packagereq>
+            <packagereq type="default">python3-libselinux</packagereq>
+            <packagereq type="default">python3-libsemanage</packagereq>
+            <packagereq type="default">python3-libvirt</packagereq>
+            <packagereq type="default">python3-rpm</packagereq>
+            <packagereq type="default">qemu</packagereq>
+            <packagereq type="default">qemu-block-iscsi</packagereq>
+            <packagereq type="default">qemu-help</packagereq>
+            <packagereq type="default">qemu-img</packagereq>
+            <packagereq type="default">quota</packagereq>
+            <packagereq type="default">radvd</packagereq>
+            <packagereq type="default">rdma-core</packagereq>
+            <packagereq type="default">realmd</packagereq>
+            <packagereq type="default">rootfiles</packagereq>
+            <packagereq type="default">rpm</packagereq>
+            <packagereq type="default">rpm-build</packagereq>
+            <packagereq type="default">rpm-libs</packagereq>
+            <packagereq type="default">rpm-plugin-systemd-inhibit</packagereq>
+            <packagereq type="default">rsync</packagereq>
+            <packagereq type="default">rsyslog</packagereq>
+            <packagereq type="default">rsyslog-relp</packagereq>
+            <packagereq type="default">security-tool</packagereq>
+            <packagereq type="default">selinux-policy</packagereq>
+            <packagereq type="default">selinux-policy-devel</packagereq>
+            <packagereq type="default">selinux-policy-targeted</packagereq>
+            <packagereq type="default">setup</packagereq>
+            <packagereq type="default">sg3_utils</packagereq>
+            <packagereq type="default">shadow</packagereq>
+            <packagereq type="default">shim</packagereq>
+            <packagereq type="default">sssd</packagereq>
+            <packagereq type="default">stratovirt</packagereq>
+            <packagereq type="default">sudo</packagereq>
+            <packagereq type="default">symlinks</packagereq>
+            <packagereq type="default">sysfsutils</packagereq>
+            <packagereq type="default">sysstat</packagereq>
+            <packagereq type="default">systemd</packagereq>
+            <packagereq type="default">systemd-udev</packagereq>
+            <packagereq type="default">tar</packagereq>
+            <packagereq type="default">time</packagereq>
+            <packagereq type="default">timedatex</packagereq>
+            <packagereq type="default">tpm-quote-tools</packagereq>
+            <packagereq type="default">tpm-tools</packagereq>
+            <packagereq type="default">trousers</packagereq>
+            <packagereq type="default">tuned</packagereq>
+            <packagereq type="default">unzip</packagereq>
+            <packagereq type="default">usbutils</packagereq>
+            <packagereq type="default">util-linux</packagereq>
+            <packagereq type="default">util-linux-user</packagereq>
+            <packagereq type="default">vim-minimal</packagereq>
+            <packagereq type="default">virt-install</packagereq>
+            <packagereq type="default">virt-what</packagereq>
+            <packagereq type="default">wget</packagereq>
+            <packagereq type="default">which</packagereq>
+            <packagereq type="default">x2nestos</packagereq>
+            <packagereq type="default">xfsdump</packagereq>
+            <packagereq type="default">yum</packagereq>
+            <packagereq type="default">zip</packagereq>
+        </packagelist>
+    </group>
+    <environment>
+        <id>nestos</id>
+        <name>NestOS for virt</name>
+        <name xml:lang="zh_CN">NestOS for virt</name>
+        <name>NestOS for virt</name>
+        <name xml:lang="zh_CN">NestOS for virt</name>
+        <display_order>1</display_order>
+        <grouplist>
+            <groupid>core</groupid>
+        </grouplist>
+    </environment>
+    <langpacks>
+        <match install="aspell-%s" name="aspell" />
+        <match install="autocorr-%s" name="autocorr" />
+        <match install="gnome-getting-started-docs-%s" name="gnome-getting-started-docs" />
+        <match install="hunspell-%s" name="hunspell" />
+        <match install="hyphen-%s" name="hyphen" />
+        <match install="libreoffice-help-%s" name="libreoffice-help" />
+        <match install="man-pages-%s" name="man-pages" />
+        <match install="mythes-%s" name="mythes" />
+    </langpacks>
+</comps>

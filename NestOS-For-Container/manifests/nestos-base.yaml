@@ -1,0 +1,93 @@
+# This file is most of a NestOS like system; it inherits from "core".
+# Add things in this file which are somewhat "opinionated", not necessarily
+# core functionality.
+
+include:
+  - ignition-and-ostree.yaml
+  - shared-workarounds.yaml
+  - rpmlist.yaml
+
+initramfs-args:
+  - --no-hostonly
+  # We don't support root on NFS, so we don't need it in the initramfs. It also
+  # conflicts with /var mount support in ignition because NFS tries to mount stuff
+  # in /var/ and then ignition can't cleanly unmount it. For example:
+  # https://github.com/dracutdevs/dracut/blob/1856ae95c873a6fe855b3dccd0144f1a96b9e71c/modules.d/95nfs/nfs-start-rpc.sh#L7
+  - --omit=nfs
+  # Omit these since we don't use them
+  - --omit=lvm
+  - --omit=iscsi
+  - --omit=dm
+  - --omit=multipath
+  - --omit=nestos-multipath
+  - --omit=nestos-multipath-fix
+
+# Be minimal
+recommends: false
+
+ignore-removed-users:
+  - root
+ignore-removed-groups:
+  - root
+etc-group-members:
+  - wheel
+  - sudo
+  - systemd-journal
+  - adm
+
+check-passwd:
+  type: "file"
+  filename: "passwd"
+check-groups:
+  type: "file"
+  filename: "group"
+
+default-target: multi-user.target
+
+# we can drop this when it's the rpm-ostree default
+rpmdb: sqlite
+
+# ⚠⚠⚠ ONLY TEMPORARY HACKS ALLOWED HERE; ALL ENTRIES NEED TRACKER LINKS ⚠⚠⚠
+
+postprocess:
+  - |
+    #!/usr/bin/env bash
+    systemctl mask kdump.service
+    systemctl mask mdmonitor.service
+
+  # https://gitee.com/openeuler/nestos-config/issues/I5R05H?from=project-issue
+  - |
+    #!/usr/bin/env bash
+    rm -rf /usr/lib/locale/locale-archive
+    cp /usr/lib/locale/locale-archive.default /usr/lib/locale/locale-archive 
+ 
+  # Enable SELinux booleans used by OpenShift
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    # container_use_cephfs is not defined
+    # setsebool -P -N container_use_cephfs on  # RHBZ#1692369
+    setsebool -P -N virt_use_samba on  # RHBZ#1754825
+
+  # Mask dnsmasq. We include dnsmasq for host services that use the dnsmasq
+  # binary but intentionally mask the systemd service so users can't easily
+  # use it as an external dns server. We prefer they use a container for that.
+  - |
+    #!/usr/bin/env bash
+    systemctl mask dnsmasq.service
+  # Mask systemd-repart. Ignition is responsible for partition setup on first
+  # boot and does not use systemd-repart currently. 
+  - |
+    #!/usr/bin/env bash
+    systemctl mask systemd-repart.service
+
+
+arch-include:
+  x86_64: bootupd.yaml
+  aarch64: bootupd.yaml
+
+remove-from-packages:
+  # Hopefully short-term hack -- see https://github.com/coreos/fedora-coreos-config/pull/1206#discussion_r705425869.
+  # This keeps the size down and ensures nothing tries to use it, preventing us
+  # from shedding the dep eventually.
+  - [cracklib-dicts, .*]  

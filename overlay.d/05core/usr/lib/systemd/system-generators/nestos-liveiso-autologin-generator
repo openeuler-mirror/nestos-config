@@ -16,7 +16,7 @@ write_dropin() {
     cat > "${out_dir}/10-autologin.conf" <<EOF
 [Service]
 ExecStart=
-ExecStart=-/sbin/agetty --autologin core -o '-p -f core' ${args} %I \$TERM
+ExecStart=-/sbin/agetty --autologin nest -o '-p -f nest' ${args} %I \$TERM
 EOF
 }
 

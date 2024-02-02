@@ -2,5 +2,10 @@
 # similarly to manifest.yaml. Unlike image-base.yaml, which is shared by all
 # streams.
 include: image-base.yaml
-squashfs-compression: gzip
-ostree-format: oci
+
+# 可选xz  zstd  默认gzip
+compressor: gzip
+
+# 仅支持oci-chunked-v1
+# 详见https://github.com/coreos/coreos-assembler/blob/15514f9cd76c8f4dc7ddadbe0d62f7285618b32d/src/cmd-build#L469
+ostree-format: oci-chunked-v1

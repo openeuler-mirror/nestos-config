@@ -1,36 +1,21 @@
-# nestos-config
+# NestOS-Config
 
-#### Description
-nestos-config provides base manifest configuration for building NestOS.
-
-#### Software Architecture
-Software architecture description
-
-#### Installation
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### Instructions
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### Contribution
-
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
+NestOS is a cloud-based operating system incubated in the openEuler community, integrating technologies such as rpm-ostree support and ignition  configuration.
 
 
-#### Gitee Feature
+This repository is the basic configuration file required to build NestOS. 
 
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+## About this code warehouse
+
+- The manifest folder contains a number of .yaml configuration files, and  packages are categorized into these configuration files according to  their function/use case.
+- The files in the overlay.d folder can overwrite the initial files provided  by the package according to their directory structure.
+- manifest.ymal contains the name of the stream used for the update, as well as the releasever.
+
+If you still have any questions about the use of specific parameters in  other configuration files, you can submit an issue to this repository,  or join sig-CloudNative or sig-K8sDistro to communicate with developers. 
+
+## Warehouse update process
+
+1. Bump releasever in manifest.yaml
+2. Update the repos in manifest.yaml if needed
+3. Run nosa fetch --update-lockfile
+4. PR the result

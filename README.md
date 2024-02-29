@@ -16,7 +16,7 @@
 
 ## 仓库更新流程
 
-1. Bump releasever in manifest.yaml
-2. Update the repos in manifest.yaml if needed
-3. Run nosa fetch --update-lockfile
-4. PR the result
+1. 在 manifest.yaml 中增加 releasever 版本号
+2. 如果需要，请更新 manifest.yaml 中的repos
+3. 运行nosa fetch --update-lockfile命令
+4. 提交 Pull Request

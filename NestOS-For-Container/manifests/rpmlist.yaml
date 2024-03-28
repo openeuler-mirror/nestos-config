@@ -1,8 +1,10 @@
 lockfile-repos:
-- repo1
-- repo2
-- repo3
-- repo4
+- OS
+- everything
+- EPOL
+- update
+- NestOS-For-Container
+- NestOS_For-Container_extra
 packages:
 - cryptsetup
 - podman

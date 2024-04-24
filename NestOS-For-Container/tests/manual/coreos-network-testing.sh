@@ -11,41 +11,41 @@ set -eu -o pipefail
 # for more details: https://github.com/coreos/fedora-coreos-tracker/issues/394
 # - Dusty Mabe - dusty@dustymabe.com
 
-vmname="coreos-nettest"
+vmname="nestos-nettest"
 
 butane_common=\
 'variant: fcos
 version: 1.0.0
 passwd:
   users:
-    - name: core
+    - name: nest
       ssh_authorized_keys:
         - $sshpubkey
 systemd:
   units:
     - name: serial-getty@ttyS0.service
       dropins:
-      - name: autologin-core.conf
+      - name: autologin-nest.conf
         contents: |
           [Service]
           # Override Execstart in main unit
           ExecStart=
           # Add new Execstart with `-` prefix to ignore failure
-          ExecStart=-/usr/sbin/agetty --autologin core --noclear %I $TERM
+          ExecStart=-/usr/sbin/agetty --autologin nest --noclear %I $TERM
           TTYVTDisallocate=no
 storage:
   files:
     # pulling from a remote verifies we have networking in the initramfs
-    - path: /home/core/remotefile
+    - path: /home/nest/remotefile
       mode: 0600
       user:
-        name: core
+        name: nest
       group:
-        name: core
+        name: nest
       contents:
-        source: https://raw.githubusercontent.com/coreos/fedora-coreos-config/8b08bd030ef3968d00d4fea9a0fa3ca3fbabf852/COPYING
+        source: https://nestos.org.cn/kola/hotspot.txt
         verification:
-          hash: sha512-d904690e4fc5defb804c2151e397cbe2aeeea821639995610aa377bb2446214c3433616a8708163776941df585b657648f20955e50d4b011ea2a96e7d8e08c66
+          hash: sha512-1ac2864063a612b045c2120602b2a88994ae9500021788f0755928f4a4c0a206a035c806facb3470e7186a117105ed8a63d18d9143d0cb11ea0969f374e82655
     - path: /etc/sysctl.d/20-silence-audit.conf
       contents:
         inline: |
@@ -310,7 +310,7 @@ check_vm() {
     fi
 
     export SSH_AUTH_SOCK=  # since we're providing our own key
-    local ssh="ssh -q $ssh_config -l core $ip"
+    local ssh="ssh -q $ssh_config -l nest $ip"
 
     # Wait for system to come up
     try=10
@@ -466,11 +466,11 @@ main() {
     local nameserverdhcp='192.168.122.1'
     local nameserverstatic='208.67.222.222' # opendns server
     local initramfshostname='initrdhost'
-    local kernel="${PWD}/coreos-nettest-kernel"
-    local initramfs="${PWD}/coreos-nettest-initramfs"
-    local sshkeyfile="${PWD}/coreos-nettest-sshkey"
-    local sshpubkeyfile="${PWD}/coreos-nettest-sshkey.pub"
-    local ignitionfile="${PWD}/coreos-nettest-config.ign"
+    local kernel="${PWD}/nestos-nettest-kernel"
+    local initramfs="${PWD}/nestos-nettest-initramfs"
+    local sshkeyfile="${PWD}/nestos-nettest-sshkey"
+    local sshpubkeyfile="${PWD}/nestos-nettest-sshkey.pub"
+    local ignitionfile="${PWD}/nestos-nettest-config.ign"
     local sshpubkey
     local butane
      
@@ -515,7 +515,7 @@ EOF
         rhcos=0
         nic0=ens2
         nic1=ens3
-        bls_file=ostree-1-fedora-coreos.conf
+        bls_file=ostree-1-NestOS-For-Container.conf
     fi
     nics="${nic0},${nic1}"
 

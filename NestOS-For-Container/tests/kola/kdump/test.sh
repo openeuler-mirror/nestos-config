@@ -1,9 +1,6 @@
 #!/bin/bash
+
 set -xeuo pipefail
-# https://docs.fedoraproject.org/en-US/fedora-coreos/debugging-kernel-crashes/
-# Only run on QEMU x86_64 for now:
-# https://github.com/coreos/fedora-coreos-tracker/issues/860
-# kola: {"platforms": "qemu-unpriv", "minMemory": 4096, "tags": "skip-base-checks", "architectures": "x86_64"}
 
 fatal() {
     echo "$@" >&2
@@ -12,12 +9,10 @@ fatal() {
 
 case "${AUTOPKGTEST_REBOOT_MARK:-}" in
   "")
-      rpm-ostree kargs --append='crashkernel=256M'
-      systemctl enable kdump.service
-      /tmp/autopkgtest-reboot setcrashkernel
-      ;;
-  setcrashkernel)
+      # check kdump service
+      # TODO
       /tmp/autopkgtest-reboot-prepare aftercrash
+      # trigger kdump
       echo "Triggering sysrq"
       sync
       echo 1 > /proc/sys/kernel/sysrq
@@ -27,12 +22,13 @@ case "${AUTOPKGTEST_REBOOT_MARK:-}" in
       sleep 5
       fatal "failed to invoke sysrq"
       ;;
+
   aftercrash)
       kcore=$(find /var/crash -type f -name vmcore)
       if test -z "${kcore}"; then
         fatal "No kcore found in /var/crash"
       fi
-      info=$(file ${kcore})
+      info=$(file "${kcore}")
       if ! [[ "${info}" =~ 'vmcore: Kdump'.*'system Linux' ]]; then
         fatal "vmcore does not appear to be a Kdump?"
       fi

@@ -33,27 +33,27 @@ set -eu -o pipefail
 #
 # - Dusty Mabe - dusty@dustymabe.com
 
-vmname="coreos-docs-nettest"
+vmname="nestos-docs-nettest"
 
 butane_common=\
 'variant: fcos
 version: 1.0.0
 passwd:
   users:
-    - name: core
+    - name: nest
       ssh_authorized_keys:
         - $sshpubkey
 systemd:
   units:
     - name: serial-getty@ttyS0.service
       dropins:
-      - name: autologin-core.conf
+      - name: autologin-nest.conf
         contents: |
           [Service]
           # Override Execstart in main unit
           ExecStart=
           # Add new Execstart with `-` prefix to ignore failure
-          ExecStart=-/usr/sbin/agetty --autologin core --noclear %I $TERM
+          ExecStart=-/usr/sbin/agetty --autologin nest --noclear %I $TERM
           TTYVTDisallocate=no
 storage:
   files:
@@ -385,11 +385,11 @@ main() {
     local subnic2='ens3'
     local vlanid='100'
 
-    local kernel="${PWD}/coreos-nettest-kernel"
-    local initramfs="${PWD}/coreos-nettest-initramfs"
-    local sshkeyfile="${PWD}/coreos-nettest-sshkey"
-    local sshpubkeyfile="${PWD}/coreos-nettest-sshkey.pub"
-    local ignitionfile="${PWD}/coreos-nettest-config.ign"
+    local kernel="${PWD}/nestos-nettest-kernel"
+    local initramfs="${PWD}/nestos-nettest-initramfs"
+    local sshkeyfile="${PWD}/nestos-nettest-sshkey"
+    local sshpubkeyfile="${PWD}/nestos-nettest-sshkey.pub"
+    local ignitionfile="${PWD}/nestos-nettest-config.ign"
     local sshpubkey
     local butane
      
@@ -429,7 +429,7 @@ EOF
         rhcos=0
         nic0=ens2
         nic1=ens3
-        bls_file=ostree-1-fedora-coreos.conf
+        bls_file=ostree-1-NestOS-For-Container.conf
     fi
 
     # Grab kernel arguments from the disk and use them

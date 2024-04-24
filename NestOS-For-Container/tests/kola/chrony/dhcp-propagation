@@ -32,10 +32,10 @@ test_setup() {
     pushd $(mktemp -d)
     # XXX: hardcode IP for now until can resolve in CentOS CI again
     #      https://pagure.io/centos-infra/issue/356
-    #NTPHOSTIP=$(getent hosts time-c-g.nist.gov | cut -d ' ' -f 1)
-    NTPHOSTIP='129.6.15.30'
+    #NTPHOSTIP=$(getent hosts ntp7.aliyun.com | cut -d ' ' -f 1)
+    NTPHOSTIP='203.107.6.88'
     cat <<EOF >Dockerfile
-FROM registry.fedoraproject.org/fedora:34
+FROM docker.io/openeuler/openeuler:22.03
 RUN dnf -y install systemd dnsmasq iproute iputils \
 && dnf clean all \
 && systemctl enable dnsmasq
@@ -57,12 +57,12 @@ main() {
     test_setup
 
     # check for NTP server information
-    # Name: time-c-g.nist.gov  IP address: 129.6.15.30
+    # Name: ntp7.aliyun.com  IP address: 29.6.15.30
     NTPSERVER=""
     retries=300
-    while [[ $retries -gt 0 && ! $NTPSERVER =~ "time-c-g.nist.gov" ]]; do
+    while [[ $retries -gt 0 && ! $NTPSERVER =~ "ntp7.aliyun.com" ]]; do
          NTPSERVER=$(chronyc sources)
-         if [[ $NTPSERVER != *"time-c-g.nist.gov"* ]]; then
+         if [[ $NTPSERVER != *"ntp7.aliyun.com"* ]]; then
              echo "waiting for ntp server to appear"
              sleep 1
              retries=$((retries - 1))

@@ -2,6 +2,15 @@
 # into "official" builds of NestOS
 # or are very "opinionated" like disabling SSH passwords by default.
 
+ref: openEuler/${basearch}/nestos/${stream}
+rojig:
+  license: MIT
+  name: nestos
+  summary: NestOS ${stream}
+
+add-commit-metadata:
+  nestos.stream: ${stream}
+
 include: nestos-base.yaml
 
 automatic-version-prefix: "${releasever}.<date:%Y%m%d>"
@@ -12,7 +21,7 @@ lockfile-repos:
   - nestos
 
 packages:
-  # CL ships this.
+  # CL ships this.  
   - docker-engine
   # Updates
   - zincati

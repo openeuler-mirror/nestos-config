@@ -6,12 +6,15 @@
 size: 10
 
 extra-kargs:
+    # Disable SMT on systems vulnerable to MDS or any similar future issue.
     - mitigations=auto,nosmt
-    - console=tty1
 
 # Disable networking by default on firstboot. We can drop this once nosa stops
-# defaulting to `ip=dhcp,dhcp6 rd.neednet=1` when it doesn't see this key.
+# defaulting to `ip=auto rd.neednet=1` when it doesn't see this key.
 ignition-network-kcmdline: []
 
 # Optional remote by which to prefix the deployed OSTree ref
 ostree-remote: openEuler
+
+# 可选xz  zstd  默认gzip
+compressor: gzip

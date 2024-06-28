@@ -1,11 +1,16 @@
+# Default to `bash` in our container, the same as other containers we ship.
+container-cmd:
+  - /usr/bin/bash
 
+
+# These packages are either widely used utilities/services or
+# are targeted for improving the general NestOS user experience.
 packages:
   # Basic user tools
   ## jq - parsing/interacting with JSON data
   - bash-completion
   - coreutils
   - jq
-  - wget
   - less
   - sudo
   - vim-minimal
@@ -25,6 +30,7 @@ packages:
   # Remote Access
   - openssh-clients openssh-server
   # Container tooling
+  - iSulad
   - podman
   - skopeo
   - toolbox

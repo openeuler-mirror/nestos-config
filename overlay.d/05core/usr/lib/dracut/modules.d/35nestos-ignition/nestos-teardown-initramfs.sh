@@ -22,6 +22,21 @@ dracut_func() {
     return $rc
 }
 
+# Get the BOOTIF and rd.bootif kernel arguments from
+# the kernel command line.
+get_bootif_kargs() {
+    bootif_kargs=""
+    bootif_karg=$(dracut_func getarg BOOTIF)
+    if [ ! -z "$bootif_karg" ]; then
+        bootif_kargs+="BOOTIF=${bootif_karg}"
+    fi
+    rdbootif_karg=$(dracut_func getarg rd.bootif)
+    if [ ! -z "$rdbootif_karg" ]; then
+        bootif_kargs+=" rd.bootif=${rdbootif_karg}"
+    fi
+    echo $bootif_kargs
+}
+
 # Determine if the generated NM connection profiles match the default
 # that would be given to us if the user had provided no additional
 # configuration. i.e. did the user give us any network configuration
@@ -30,6 +45,12 @@ dracut_func() {
 # If it matches then it was the default, if not then the user provided
 # something extra.
 are_default_NM_configs() {
+    # pick up our NestOS default networking kargs from the afterburn dropin
+    DEFAULT_KARGS_FILE=/usr/lib/systemd/system/afterburn-network-kargs.service.d/50-afterburn-network-kargs-default.conf
+    source <(grep -o 'AFTERBURN_NETWORK_KARGS_DEFAULT=.*' $DEFAULT_KARGS_FILE)
+    # Also pick up BOOTIF/rd.bootif kargs and apply them here.
+    # See https://github.com/coreos/fedora-coreos-tracker/issues/1048
+    BOOTIF_KARGS=$(get_bootif_kargs)
     # Make two dirs for storing files to use in the comparison
     mkdir -p /run/nestos-teardown-initramfs/connections-compare-{1,2}
     # Make another that's just a throwaway for the initrd-data-dir
@@ -37,10 +58,14 @@ are_default_NM_configs() {
     # Copy over the previously generated connection(s) profiles
     cp  /run/NetworkManager/system-connections/* \
         /run/nestos-teardown-initramfs/connections-compare-1/
+    # Delete lo.nmconnection if it was created.
+    # https://github.com/coreos/fedora-coreos-tracker/issues/1385
+    rm -f /run/nestos-teardown-initramfs/connections-compare-1/lo.nmconnection
     # Do a new run with the default input
     /usr/libexec/nm-initrd-generator \
         -c /run/nestos-teardown-initramfs/connections-compare-2 \
-        -i /run/nestos-teardown-initramfs/initrd-data-dir -- ip=dhcp,dhcp6
+        -i /run/nestos-teardown-initramfs/initrd-data-dir \
+        -- $AFTERBURN_NETWORK_KARGS_DEFAULT $BOOTIF_KARGS
     # remove unique identifiers from the files (so our diff can work)
     sed -i '/^uuid=/d' /run/nestos-teardown-initramfs/connections-compare-{1,2}/*
     # currently the output will differ based on whether rd.neednet=1
@@ -71,9 +96,12 @@ are_default_NM_configs() {
 # See https://github.com/coreos/fedora-coreos-tracker/issues/394#issuecomment-599721173
 propagate_initramfs_networking() {
     # Check for any real root config in the two locations where a user could have
-    # provided network configuration. On NestOS we only support keyfiles, 
+    # provided network configuration. On FCOS we only support keyfiles, but on RHCOS
+    # we support keyfiles and ifcfg. We also need to ignore readme-ifcfg-rh.txt
+    # which is a cosmetic file added in
+    # https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/commit/96d7362
     if [ -n "$(ls -A /sysroot/etc/NetworkManager/system-connections/)" -o \
-         -n "$(ls -A /sysroot/etc/sysconfig/network-scripts/)" ]; then
+         -n "$(ls -A -I readme-ifcfg-rh.txt /sysroot/etc/sysconfig/network-scripts/)" ]; then
         echo "info: networking config is defined in the real root"
         realrootconfig=1
     else
@@ -102,6 +130,9 @@ propagate_initramfs_networking() {
             else
                 echo "info: propagating initramfs networking config to the real root"
                 cp -v /run/NetworkManager/system-connections/* /sysroot/etc/NetworkManager/system-connections/
+                # Delete lo.nmconnection if it was created.
+                # https://github.com/coreos/fedora-coreos-tracker/issues/1385
+                rm -vf /sysroot/etc/NetworkManager/system-connections/lo.nmconnection
                 nestos-relabel /etc/NetworkManager/system-connections/
             fi
         else
@@ -137,6 +168,20 @@ propagate_initramfs_hostname() {
     fi
 }
 
+# Propagate the ifname= karg udev rules. The policy here is:
+#
+#     - IF ifname karg udev rule file exists
+#     - THEN copy it to the real root
+#
+propagate_ifname_udev_rules() {
+    local udev_file='/etc/udev/rules.d/80-ifname.rules'
+    if [ -e "${udev_file}" ]; then
+        echo "info: propagating ifname karg udev rules to the real root"
+        cp -v "${udev_file}" "/sysroot/${udev_file}"
+        nestos-relabel "${udev_file}"
+    fi
+}
+
 down_interface() {
     echo "info: taking down network device: $1"
     # On recommendation from the NM team let's try to delete the device
@@ -152,7 +197,7 @@ down_interface() {
 }
 
 # Iterate through the interfaces in the machine and take them down.
-# Note that in the futre we would like to possibly use `nmcli` networking off`
+# Note that in the future we would like to possibly use `nmcli` networking off`
 # for this. See the following two comments for details:
 # https://github.com/coreos/fedora-coreos-tracker/issues/394#issuecomment-599721763
 # https://github.com/coreos/fedora-coreos-tracker/issues/394#issuecomment-599746049
@@ -184,13 +229,22 @@ main() {
     # Load libraries from dracut
     load_dracut_libs
 
-    # Take down all interfaces set up in the initramfs
-    down_interfaces
+    # If we're using iSCSI, then we can't tear down networking since we'll lose
+    # root. This means in that case that the network config written to the real
+    # root won't be applied "from scratch". But anyway, since networking must
+    # stay on, it's simply not supported to configure the real root in a way
+    # that would require tearing down the connection on the interface involved.
+    if dracut_func getargbool 0 rd.iscsi.firmware || dracut_func getarg netroot; then
+        echo "info: iSCSI in use; not tearing down networking"
+    else
+        # Take down all interfaces set up in the initramfs
+        down_interfaces
 
-    # Clean up all routing
-    echo "info: flushing all routing"
-    ip route flush table main
-    ip route flush cache
+        # Clean up all routing
+        echo "info: flushing all routing"
+        ip route flush table main
+        ip route flush cache
+    fi
 
     # Hopefully our logic is sound enough that this is never needed, but
     # user's can explicitly disable initramfs network/hostname propagation
@@ -201,12 +255,16 @@ main() {
     else
         propagate_initramfs_hostname
         propagate_initramfs_networking
+        propagate_ifname_udev_rules
     fi
 
     # Now that the configuration has been propagated (or not)
     # clean it up so that no information from outside of the
     # real root is passed on to NetworkManager in the real root
     rm -rf /run/NetworkManager/
+
+    rm -f /run/udev/rules.d/80-nestos-boot-disk.rules
+    rm -f /dev/disk/by-id/nestos-boot-disk
 }
 
 main

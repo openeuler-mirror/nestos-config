@@ -1,11 +1,12 @@
-# This minimal base starts just from: kernel + systemd + rpm-ostree + bootloader.
+# This minimal base is the userspace: systemd + rpm-ostree + bootloader.
 # The intent of this is to inherit from this if you are doing something highly
 # custom that e.g. might not involve Ignition or podman, but you do want
 # rpm-ostree.
 # We expect most people though using nestos-assembler to inherit from
 # nestos-base.yaml.
 packages:
- - kernel  systemd
+ - systemd
+ - linux-firmware
  # rpm-ostree
  - rpm-ostree nss-altfiles
  # firmware updates

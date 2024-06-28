@@ -58,6 +58,7 @@ postprocess:
     systemctl mask dnsmasq.service
 
 packages:
+  - kernel
   # Security
   - polkit
   # Containers

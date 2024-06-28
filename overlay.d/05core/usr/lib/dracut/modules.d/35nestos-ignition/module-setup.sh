@@ -22,7 +22,16 @@ install() {
         diff \
         lsblk \
         sed \
-        sgdisk
+        grep \
+        sgdisk \
+        uname
+
+    # For IBM SecureExecution
+    if [[ $(uname -m) = s390x ]]; then
+        inst_multiple \
+            gpg \
+            gpg-agent
+    fi
 
     inst_simple "$moddir/nestos-diskful-generator" \
         "$systemdutildir/system-generators/nestos-diskful-generator"
@@ -30,8 +39,21 @@ install() {
     inst_script "$moddir/nestos-gpt-setup.sh" \
         "/usr/sbin/nestos-gpt-setup"
 
+    # This has to work only on diskful systems during firstboot.
+    # nestos-diskful-generator will create a symlink
+    inst_simple "$moddir/80-nestos-boot-disk.rules" \
+        "/usr/lib/nestos/80-nestos-boot-disk.rules"
+
+    inst_script "$moddir/nestos-disk-contains-fs.sh" \
+        "/usr/lib/udev/nestos-disk-contains-fs"
+
     inst_script "$moddir/nestos-ignition-setup-user.sh" \
         "/usr/sbin/nestos-ignition-setup-user"
+
+    inst_script "$moddir/nestos-post-ignition-checks.sh" \
+        "/usr/sbin/nestos-post-ignition-checks"
+
+    install_ignition_unit nestos-post-ignition-checks.service
 
     # For consistency tear down the network and persist multipath between the initramfs and
     # real root. See https://github.com/coreos/fedora-coreos-tracker/issues/394#issuecomment-599721763
@@ -55,5 +77,20 @@ install() {
     install_ignition_unit "nestos-boot-edit.service" \
         "ignition-diskful.target"
 
+    install_ignition_unit nestos-ignition-unique-boot.service ignition-diskful.target
+    install_ignition_unit nestos-unique-boot.service ignition-diskful.target
     install_ignition_unit nestos-ignition-setup-user.service
+
+    # IBM Secure Execution. Ignition config for reencryption of / and /boot
+    inst_simple "$moddir/01-secex.ign" /usr/lib/nestos/01-secex.ign
+    inst_simple "$moddir/nestos-secex-ignition-decrypt.service" \
+        "$systemdsystemunitdir/nestos-secex-ignition-decrypt.service"
+    inst_script "$moddir/nestos-secex-ignition-decrypt.sh" \
+        "/usr/sbin/nestos-secex-ignition-decrypt"
+
+    inst_multiple jq blkid
+    inst_script "$moddir/nestos-rootflags.sh" \
+        "/usr/sbin/nestos-rootflags"
+    # Install unit, but don't enable it. Will be pulled in by diskful generator.
+    inst_simple "$moddir/nestos-rootflags.service" "$systemdsystemunitdir/nestos-rootflags.service"
 }

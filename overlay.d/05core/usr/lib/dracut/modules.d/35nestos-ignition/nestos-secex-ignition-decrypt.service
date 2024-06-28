@@ -1,0 +1,20 @@
+# This service is enabled by nestos-diskful-generator
+
+[Unit]
+Description=NestOS Secex Ignition Config Decryptor
+ConditionPathExists=/etc/initrd-release
+ConditionPathExists=/run/nestos/secure-execution
+DefaultDependencies=false
+
+OnFailure=emergency.target
+OnFailureJobMode=isolate
+
+# Run after the crypt device becomes available and before Ignition
+Requires=dev-disk-by\x2did-virtio\x2dignition_crypted.device
+After=dev-disk-by\x2did-virtio\x2dignition_crypted.device
+Before=ignition-fetch-offline.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/sbin/nestos-secex-ignition-decrypt

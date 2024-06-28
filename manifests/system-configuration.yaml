@@ -3,6 +3,7 @@
 # RHCOS.
 
 packages:
+  - iSulad
   # Configuring SSH keys, cloud provider check-in, etc
   - afterburn afterburn-dracut
   # NTP support
@@ -37,3 +38,12 @@ packages:
   # https://github.com/coreos/fedora-coreos-tracker/issues/753
   - stalld
   - bc
+  # Ignition aware SSH key management
+  - ssh-key-dir
+postprocess:
+  # Mask systemd-repart. Ignition is responsible for partition setup on first
+  # boot and does not use systemd-repart currently. See also
+  # https://github.com/coreos/fedora-coreos-tracker/issues/570
+  - |
+    #!/usr/bin/env bash
+    systemctl mask systemd-repart.service

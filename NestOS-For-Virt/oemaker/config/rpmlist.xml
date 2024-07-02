@@ -129,7 +129,6 @@
     <packagereq>parted</packagereq>
     <packagereq>grub2-tools</packagereq>
     <packagereq>nmap</packagereq>
-    <packagereq>golang-github-prometheus-node_exporter</packagereq>
     <packagereq>sudo</packagereq>
     <packagereq>acl</packagereq>
     <packagereq>iptraf-ng</packagereq>
@@ -138,8 +137,7 @@
     <packagereq>cifs-utils</packagereq>
     <packagereq>policycoreutils</packagereq>
     <packagereq>iprutils</packagereq>
-    <packagereq>PilotGo-agent</packagereq>
-    <packagereq>NestOS-For-Virt-repos</packagereq>
+    <packagereq>openEuler-repos</packagereq>
     <packagereq>libvirt-daemon-driver-nwfilter</packagereq>
     <packagereq>libvirt-daemon-driver-storage-logical</packagereq>
     <packagereq>libvirt-nss</packagereq>
@@ -158,7 +156,7 @@
     <packagereq>util-linux</packagereq>
     <packagereq>python3-rpm</packagereq>
     <packagereq>libvirt-daemon-driver-qemu</packagereq>
-    <packagereq>openEuler-NestOS-For-Virt-release</packagereq>
+    <packagereq>openEuler-release-nestos-for-virt</packagereq>
     <packagereq>bash</packagereq>
     <packagereq>yum</packagereq>
     <packagereq>freeradius</packagereq>
@@ -208,7 +206,6 @@
     <packagereq>initial-setup</packagereq>
     <packagereq>systemd</packagereq>
     <packagereq>zip</packagereq>
-    <packagereq>PilotGo-plugin-topology-agent</packagereq>
     <packagereq>linux-firmware</packagereq>
     <packagereq>ipmitool</packagereq>
     <packagereq>libvirt</packagereq>

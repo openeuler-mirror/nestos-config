@@ -18,9 +18,9 @@ runascoreuserscript='
 #!/bin/bash
 set -euxo pipefail
 
-podman network create testnetwork
-podman run --rm -t --network=testnetwork registry.fedoraproject.org/fedora:34 getent hosts google.com
-podman network rm testnetwork
+sudo podman network create testnetwork
+sudo podman run --rm -t --privileged --network=testnetwork hub.oepkgs.net/openeuler/openeuler:22.03-lts-sp3 getent hosts google.com
+sudo podman network rm testnetwork
 '
 
 runascoreuser() {

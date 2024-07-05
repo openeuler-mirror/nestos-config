@@ -3,6 +3,7 @@
 # don't have an easy way to test it.
 [Unit]
 Description=NestOS Live ISO virtio success
+Documentation=https://github.com/coreos/fedora-coreos-config
 # Only run on the Live ISO, and only if there's no Ignition config
 ConditionKernelCommandLine=nestos.liveiso
 ConditionPathExists=!/config.ign
@@ -15,7 +16,7 @@ ConditionPathExists=/dev/virtio-ports/nestos.liveiso-success
 [Service]
 Type=simple
 # Wait for a user session to start, then write a static message to the
-# virtio channel, which https://gitee.com/openeuler/nestos-assembler
+# virtio channel, which https://github.com/coreos/coreos-assembler/pull/1330
 # knows how to read.  We previously did "journalctl -f ... | head -1" here,
 # but RHEL 8 has systemd 239, which has
 # https://github.com/systemd/systemd/issues/9374.

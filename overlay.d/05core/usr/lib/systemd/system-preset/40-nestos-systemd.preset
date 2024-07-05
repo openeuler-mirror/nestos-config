@@ -14,5 +14,3 @@ disable systemd-firstboot.service
 # with the latter.  Preemptively disable the service; it will hopefully
 # be subpackaged though for Fedora.
 disable systemd-sysext.service
-
-disable multipathd.service

@@ -11,6 +11,7 @@ install_ignition_unit() {
     local target=${1:-complete}
     inst_simple "$moddir/$unit" "$systemdsystemunitdir/$unit"
     # note we `|| exit 1` here so we error out if e.g. the units are missing
+    # see https://github.com/coreos/fedora-coreos-config/issues/799
     systemctl -q --root="$initdir" add-requires "ignition-${target}.target" "$unit" || exit 1
 }
 
@@ -27,7 +28,15 @@ install() {
         systemd-sysusers \
         systemd-tmpfiles \
         sort \
+        xfs_info \
+        xfs_spaceman \
         uniq
+
+    if [[ $(uname -m) = s390x ]]; then
+        # for Secure Execution
+        inst_multiple \
+            veritysetup
+    fi
 
     # ignition-ostree-growfs deps
     inst_multiple  \
@@ -74,22 +83,16 @@ install() {
 
     inst_multiple jq chattr
     inst_script "$moddir/ignition-ostree-transposefs.sh" "/usr/libexec/ignition-ostree-transposefs"
-    for x in detect save restore; do
+    for x in detect save autosave-xfs restore; do
         install_ignition_unit ignition-ostree-transposefs-${x}.service
     done
 
     # Disk support
-    install_ignition_unit ignition-ostree-mount-firstboot-sysroot.service diskful
     for p in boot root; do
         install_ignition_unit ignition-ostree-uuid-${p}.service diskful
     done
     inst_script "$moddir/ignition-ostree-firstboot-uuid" \
         "/usr/sbin/ignition-ostree-firstboot-uuid"
-    install_ignition_unit ignition-ostree-mount-subsequent-sysroot.service diskful-subsequent
-    inst_script "$moddir/ignition-ostree-mount-sysroot.sh" \
-        "/usr/sbin/ignition-ostree-mount-sysroot"
-    inst_script "$moddir/nestos-rootflags.sh" \
-        "/usr/sbin/nestos-rootflags"
 
     install_ignition_unit ignition-ostree-growfs.service
     inst_script "$moddir/ignition-ostree-growfs.sh" \

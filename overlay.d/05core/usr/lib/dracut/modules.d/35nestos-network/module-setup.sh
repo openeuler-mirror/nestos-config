@@ -11,14 +11,12 @@ install() {
     inst_simple "$moddir/nestos-enable-network.sh" \
         "/usr/sbin/nestos-enable-network"
     install_and_enable_unit "nestos-enable-network.service" \
-        "initrd.target"
+        "ignition-complete.target"
 
     inst_simple "$moddir/nestos-copy-firstboot-network.sh" \
         "/usr/sbin/nestos-copy-firstboot-network"
-    # Only run this when ignition runs and only when the system
-    # has disks. ignition-diskful.target should suffice.
     install_and_enable_unit "nestos-copy-firstboot-network.service" \
-        "ignition-diskful.target"
+        "ignition-complete.target"
 
     # Dropin with firstboot network configuration kargs, applied via
     # Afterburn.

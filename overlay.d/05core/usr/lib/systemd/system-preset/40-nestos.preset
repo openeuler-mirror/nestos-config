@@ -5,8 +5,15 @@ enable console-login-helper-messages-gensnippet-os-release.service
 enable console-login-helper-messages-gensnippet-ssh-keys.service
 # CA certs (probably to add to base fedora eventually)
 enable nestos-update-ca-trust.service
+# Set kernel console log level
+enable nestos-printk-quiet.service
 # https://github.com/coreos/ignition/issues/1125
 enable nestos-ignition-firstboot-complete.service
+# Delete Ignition config from provider on platforms where it's possible
+# https://github.com/coreos/ignition/pull/1350
+enable ignition-delete-config.service
+# Delete Ignition config from provider when upgrading existing nodes
+enable nestos-ignition-delete-config.service
 # Boot checkin services for cloud providers.
 enable afterburn-checkin.service
 enable afterburn-firstboot-checkin.service
@@ -23,5 +30,5 @@ enable bootupd.socket
 # Ideally it should have been added as part of base Fedora - but since it was arch specific, it was not added: https://bugzilla.redhat.com/show_bug.cgi?id=1433859
 enable rtas_errd.service
 enable clevis-luks-askpass.path
-# Provide information if no ignition is provided
-enable nestos-check-ignition-config.service
+# Provide status information about the Ignition run
+enable nestos-ignition-write-issues.service

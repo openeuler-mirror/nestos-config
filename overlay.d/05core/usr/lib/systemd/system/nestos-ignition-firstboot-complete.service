@@ -1,5 +1,6 @@
 [Unit]
 Description=NestOS Mark Ignition Boot Complete
+Documentation=https://docs.fedoraproject.org/en-US/fedora-coreos/
 ConditionKernelCommandLine=ignition.firstboot
 ConditionPathExists=!/run/ostree-live
 RequiresMountsFor=/boot

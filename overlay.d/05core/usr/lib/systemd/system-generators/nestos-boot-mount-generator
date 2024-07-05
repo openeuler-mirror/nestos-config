@@ -10,7 +10,7 @@ set -euo pipefail
     exit 0
 }
 
-# If there's already an /etc/fstab entries for /boot, then this is is a non-NestOS
+# If there's already an /etc/fstab entries for /boot, then this is is a non-FCOS
 # system, likely RHCOS pre-4.3 (which still used Anaconda).  In that case, we
 # don't want to overwrite what the systemd-fstab-generator will do.
 if findmnt --fstab /boot &>/dev/null; then
@@ -47,6 +47,7 @@ mk_mount() {
 # Automatically created by nestos-boot-mount-generator
 [Unit]
 Description=NestOS Dynamic Mount for ${mount_pt}
+Documentation=https://github.com/coreos/fedora-coreos-config
 
 Before=local-fs.target
 Requires=systemd-fsck@${devservice}

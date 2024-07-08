@@ -27,6 +27,13 @@ Things that are more closely "NestOS":
 * display warnings on the console if no ignition config was provided or no ssh
   key found.
 
+
+18fwupd-refresh-timer
+---------------------
+
+Enable fwupd-refresh.timer on Fedora 39:
+https://fedoraproject.org/wiki/Changes/EnableFwupdRefreshByDefault
+
 20platform-chrony
 -----------------
 

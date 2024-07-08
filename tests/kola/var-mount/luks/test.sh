@@ -1,17 +1,14 @@
 #!/bin/bash
+## kola:
+##   # Restrict to qemu for now because the primary disk path is platform-dependent
+##   platforms: qemu
+##   architectures: "! s390x"
+##   description: Verify that reprovision disk with luks works.
+
 set -xeuo pipefail
 
-# restrict to qemu for now because the primary disk path is platform-dependent
-# kola: {"platforms": "qemu", "architectures": "!s390x"}
-
-ok() {
-    echo "ok" "$@"
-}
-
-fatal() {
-    echo "$@" >&2
-    exit 1
-}
+# shellcheck disable=SC1091
+. "$KOLA_EXT_DATA/commonlib.sh"
 
 # /var
 
@@ -31,6 +28,15 @@ blktype=$(lsblk -o TYPE "${src}" --noheadings)
 
 fstype=$(findmnt -nvr /var/log -o FSTYPE)
 [[ $fstype == ext4 ]]
+
+table=$(dmsetup table varlog)
+if grep -q allow_discards <<< "${table}"; then
+    fatal "found allow_discards in /var/log DM table: ${table}"
+fi
+if grep -q no_read_workqueue <<< "${table}"; then
+    fatal "found no_read_workqueue in /var/log DM table: ${table}"
+fi
+ok "discard and custom option not enabled for /var/log"
 
 case "${AUTOPKGTEST_REBOOT_MARK:-}" in
   "")

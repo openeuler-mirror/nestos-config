@@ -1,22 +1,17 @@
 #!/bin/bash
+## kola:
+##   platforms: qemu
+##   description: Verify default system configuration are both on first and
+##     subsequent boots.
+
 set -xeuo pipefail
-# kola: {"platforms": "qemu"}
 
-# These are read-only not-necessarily-related checks that verify default system
-# configuration both on first and subsequent boots.
-
-ok() {
-    echo "ok" "$@"
-}
-
-fatal() {
-    echo "$@" >&2
-    exit 1
-}
+# shellcheck disable=SC1091
+. "$KOLA_EXT_DATA/commonlib.sh"
 
 # /var
 varsrc=$(findmnt -nvr /var -o SOURCE)
-rootsrc=$(findmnt -nvr / -o SOURCE)
+rootsrc=$(findmnt -nvr /sysroot -o SOURCE)
 [[ $(realpath "$varsrc") == $(realpath "$rootsrc") ]]
 ok "/var is backed by rootfs"
 
@@ -27,6 +22,29 @@ if ! systemctl cat boot.mount | grep -q What=/dev/disk/by-uuid; then
 fi
 ok "boot mounted by UUID"
 
+# check that we took ownership of the bootfs
+[ -f /boot/.root_uuid ]
+
+# s390x does not have grub, skip this part
+
+if [ "$(arch)" == "ppc64le" ] || [ "$(arch)" == "s390x" ]; then
+  echo "skipping EFI verification on arch $(arch)"
+else
+  # check for the UUID dropins
+  [ -f /boot/grub2/bootuuid.cfg ]
+  mount -o ro /dev/disk/by-label/EFI-SYSTEM /boot/efi
+  found_bootuuid="false"
+  for f in /boot/efi/EFI/*/bootuuid.cfg; do
+      if [ -f "$f" ]; then
+          found_bootuuid="true"
+      fi
+  done
+  if [[ "${found_bootuuid}" == "false" ]]; then
+      fatal "No /boot/efi/EFI/*/bootuuid.cfg found"
+  fi
+  umount /boot/efi
+fi
+
 case "${AUTOPKGTEST_REBOOT_MARK:-}" in
   "")
       ok "first boot"
@@ -35,10 +53,12 @@ case "${AUTOPKGTEST_REBOOT_MARK:-}" in
 
   rebooted)
       # check for expected default kargs
-      grep root=UUID= /proc/cmdline
+      grep root=UUID="$(cat /boot/.root_uuid)" /proc/cmdline
       ok "found root karg"
 
-      grep boot=UUID= /proc/cmdline
+      bootsrc=$(findmnt -nvr /boot -o SOURCE)
+      eval $(blkid -p -o export "${bootsrc}")
+      grep boot=UUID="${UUID}" /proc/cmdline
       ok "found boot karg"
 
       ok "second boot"

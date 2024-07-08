@@ -1,25 +1,29 @@
 #!/bin/bash
+## kola:
+##   # This test pulls a container from a registry.
+##   tags: "platform-independent needs-internet"
+##   # This test doesn't make meaningful changes to the system and
+##   # should be able to be combined with other tests.
+##   exclusive: false
+##   # This test reaches out to the internet and it could take more
+##   # time to pull down the container.
+##   timeoutMin: 3
+##   description: Verify that DNS in rootless podman containers can
+##     resolve external domains.
+
+# See https://github.com/coreos/fedora-coreos-tracker/issues/923
+
 set -xeuo pipefail
 
-# Tests that rootless podman containers can DNS resolve external domains.
-# https://github.com/coreos/fedora-coreos-tracker/issues/923
-# kola: { "tags": "needs-internet", "platforms": "qemu-unpriv", "exclusive": false}
-
-ok() {
-    echo "ok" "$@"
-}
-
-fatal() {
-    echo "$@" >&2
-    exit 1
-}
+# shellcheck disable=SC1091
+. "$KOLA_EXT_DATA/commonlib.sh"
 
 runascoreuserscript='
 #!/bin/bash
 set -euxo pipefail
 
 podman network create testnetwork
-podman run --rm -t --network=testnetwork registry.fedoraproject.org/fedora:34 getent hosts google.com
+podman run --rm -t --network=testnetwork quay.io/fedora/fedora:39 getent hosts google.com
 podman network rm testnetwork
 '
 
@@ -32,10 +36,10 @@ runascoreuser() {
 main() {
     echo "$runascoreuserscript" > /tmp/runascoreuserscript
     chmod +x /tmp/runascoreuserscript
-    if ! runascoreuser /tmp/runascoreuserscript ; then 
-        fatal "DNS in rootless podman testnetwork failed. Test Fails" 
-    else 
-        ok "DNS in rootless podman testnetwork Suceeded. Test Passes" 
+    if ! runascoreuser /tmp/runascoreuserscript ; then
+        fatal "DNS in rootless podman testnetwork failed. Test Fails"
+    else
+        ok "DNS in rootless podman testnetwork Suceeded. Test Passes"
     fi
 }
 

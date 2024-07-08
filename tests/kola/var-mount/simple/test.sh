@@ -1,17 +1,14 @@
 #!/bin/bash
+## kola:
+##   platforms: qemu
+##   description: Verify that provision disk with guid works.
+#
+# Restrict to qemu for now because the primary disk path is platform-dependent
+
 set -xeuo pipefail
 
-# restrict to qemu for now because the primary disk path is platform-dependent
-# kola: {"platforms": "qemu"}
-
-ok() {
-    echo "ok" "$@"
-}
-
-fatal() {
-    echo "$@" >&2
-    exit 1
-}
+# shellcheck disable=SC1091
+. "$KOLA_EXT_DATA/commonlib.sh"
 
 # /var
 

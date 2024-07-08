@@ -1,15 +1,22 @@
 #!/bin/bash
-# kola: {"platforms": "qemu", "minMemory": 4096, "additionalDisks": ["5G", "5G"]}
+## kola:
+##   # additionalDisks is only supported on qemu.
+##   platforms: qemu
+##   # Root reprovisioning requires at least 4GiB of memory.
+##   minMemory: 4096
+##   # Linear RAID is setup on these disks.
+##   additionalDisks: ["5G", "5G"]
+##   # This test includes a lot of disk I/O and needs a higher
+##   # timeout value than the default.
+##   timeoutMin: 15
+##   # This test reprovisions the rootfs.
+##   tags: reprovision
+##   description: Verify the root reprovision with RAID 1 works.
+
 set -xeuo pipefail
 
-ok() {
-    echo "ok" "$@"
-}
-
-fatal() {
-    echo "$@" >&2
-    exit 1
-}
+# shellcheck disable=SC1091
+. "$KOLA_EXT_DATA/commonlib.sh"
 
 srcdev=$(findmnt -nvr / -o SOURCE)
 [[ ${srcdev} == $(realpath /dev/md/foobar) ]]
@@ -32,6 +39,11 @@ case "${AUTOPKGTEST_REBOOT_MARK:-}" in
       # check that ignition-ostree-growfs didn't run
       if [ -e /run/ignition-ostree-growfs.stamp ]; then
           fatal "ignition-ostree-growfs ran"
+      fi
+
+      # check that autosave-xfs didn't run
+      if [ -e /run/ignition-ostree-autosaved-xfs.stamp ]; then
+          fatal "unexpected autosaved XFS"
       fi
 
       # reboot once to sanity-check we can find root on second boot

@@ -1,17 +1,20 @@
 #!/bin/bash
-# kola: {"platforms": "qemu", "minMemory": 4096}
+## kola:
+##   # This test reprovisions the rootfs.
+##   tags: "platform-independent reprovision"
+##   # Root reprovisioning requires at least 4GiB of memory.
+##   minMemory: 4096
+##   # This test includes a lot of disk I/O and needs a higher
+##   # timeout value than the default.
+##   timeoutMin: 15
+##   description: Verify the root reprovisioning with specified file system works.
+
 set -xeuo pipefail
 
-ok() {
-    echo "ok" "$@"
-}
+# shellcheck disable=SC1091
+. "$KOLA_EXT_DATA/commonlib.sh"
 
-fatal() {
-    echo "$@" >&2
-    exit 1
-}
-
-fstype=$(findmnt -nvr / -o FSTYPE)
+fstype=$(findmnt -nvr /sysroot -o FSTYPE)
 [[ $fstype == ext4 ]]
 ok "source is ext4"
 

@@ -1,5 +1,5 @@
-variant: fcos
-version: 1.4.0
+variant: nestos
+version: 1.0.0
 passwd:
   users:
     - name: tester

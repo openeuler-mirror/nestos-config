@@ -1,7 +1,7 @@
 #!/bin/bash
 ## kola:
 ##   tags: "platform-independent"
-##   description: Verify that Ignition is able to use `coreos-boot-disk` symlink.
+##   description: Verify that Ignition is able to use `nestos-boot-disk` symlink.
 
 set -xeuo pipefail
 
@@ -9,7 +9,7 @@ set -xeuo pipefail
 . "$KOLA_EXT_DATA/commonlib.sh"
 
 # symlink shouldn't be propogated to real-root
-link="/dev/disk/by-id/coreos-boot-disk"
+link="/dev/disk/by-id/nestos-boot-disk"
 if [[ -h "${link}" ]]; then
     fatal "${link} still exists"
 fi

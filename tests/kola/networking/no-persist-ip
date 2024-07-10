@@ -29,7 +29,7 @@ if [ ${nic_ip} != "10.0.2.31" ]; then
 fi
 ok "get ${nic_name} ip is 10.0.2.31"
 
-if ! journalctl -b -u coreos-teardown-initramfs | grep -q "info: skipping propagating initramfs settings"; then
+if ! journalctl -b -u nestos-teardown-initramfs | grep -q "info: skipping propagating initramfs settings"; then
     fatal "Error: can not get log: (info: skipping propagating initramfs settings)"
 fi
-ok "test coreos.no_persist_ip disable initramfs network propagation"
+ok "test nestos.no_persist_ip disable initramfs network propagation"

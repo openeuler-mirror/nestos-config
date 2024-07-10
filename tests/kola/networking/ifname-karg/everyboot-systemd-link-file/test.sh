@@ -6,7 +6,7 @@
 ##   # Don't run the propagate code. With this test we want to
 ##   # validate that the systemd.link file gets created by
 ##   # systemd-network-generator.
-##   appendFirstbootKernelArgs: "coreos.no_persist_ip"
+##   appendFirstbootKernelArgs: "nestos.no_persist_ip"
 
 set -xeuo pipefail
 

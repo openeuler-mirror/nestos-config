@@ -17,11 +17,11 @@ set -xeuo pipefail
 . "$KOLA_EXT_DATA/commonlib.sh"
 
 platform_json_kargs() {
-    jq -r ".$1.kernel_arguments // [] | join(\" \")" < /boot/coreos/platforms.json
+    jq -r ".$1.kernel_arguments // [] | join(\" \")" < /boot/nestos/platforms.json
 }
 
 platform_json_grub_cmds() {
-    jq -r ".$1.grub_commands // [] | join(\"\\\\n\")" < /boot/coreos/platforms.json
+    jq -r ".$1.grub_commands // [] | join(\"\\\\n\")" < /boot/nestos/platforms.json
 }
 
 check_platforms_json() {
@@ -38,7 +38,7 @@ check_platforms_json() {
 }
 
 # Check whether platforms.json exists
-if [ ! -e /boot/coreos/platforms.json ]; then
+if [ ! -e /boot/nestos/platforms.json ]; then
     fatal "platforms.json doesn't exist!"
 fi
 ok "platforms.json exists!"

@@ -1,5 +1,5 @@
-variant: fcos
-version: 1.3.0
+variant: nestos
+version: 1.0.0
 systemd:
   units:
     - name: touch@.service

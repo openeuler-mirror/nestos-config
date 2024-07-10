@@ -1,4 +1,4 @@
-variant: fcos
+variant: nestos
 # Must use version 1.0.0 here to use Ignition spec 3.0.0 for
 # our oldest supported starting points (i.e. 31.20200108.3.0)
 version: 1.0.0

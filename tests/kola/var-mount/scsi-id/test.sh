@@ -21,7 +21,7 @@ fi
 source /etc/os-release
 ostree_conf=""
 if [ "$ID" == "fedora" ]; then
-    ostree_conf="/boot/loader.1/entries/ostree-1-fedora-coreos.conf"
+    ostree_conf="/boot/loader.1/entries/ostree-1-nestos.conf"
 elif [[ "${ID_LIKE}" =~ "rhel" ]]; then
     ostree_conf="/boot/loader.1/entries/ostree-1-${ID}.conf"
 else

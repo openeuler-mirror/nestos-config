@@ -23,7 +23,7 @@ get_ipv4_for_nic() {
 }
 
 get_fcos_stream() {
-    rpm-ostree status -b --json | jq -r '.deployments[0]["base-commit-meta"]["fedora-coreos.stream"]'
+    rpm-ostree status -b --json | jq -r '.deployments[0]["base-commit-meta"]["nestos.stream"]'
 }
 
 is_fcos() {
@@ -31,11 +31,24 @@ is_fcos() {
     [ "${ID}" == "fedora" ] && [ "${VARIANT_ID}" == "coreos" ]
 }
 
+is_nestos() {
+    source /etc/os-release
+    [ "${ID}" == "nestos" ] && [ "${VARIANT_ID}" == "container" ]
+}
+
 # Note when using this, you probably also want to check `get_rhel_maj_ver`.
 is_rhcos() {
     source /etc/os-release
     [ "${ID}" == "rhcos" ]
 }
+
+get_nestos_ver() {
+    source /etc/os-release
+    if is_nestos; then
+        echo "${VERSION_ID}"
+    fi
+}
+
 
 get_fedora_ver() {
     source /etc/os-release

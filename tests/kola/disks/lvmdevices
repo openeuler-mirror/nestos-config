@@ -1,7 +1,7 @@
 #!/bin/bash
 ## kola:
 ##   description: Verify LVM devices file handling works as expected.
-##                This test is meant to cover coreos-populate-lvmdevices.service.
+##                This test is meant to cover nestos-populate-lvmdevices.service.
 ##   # additionalDisks is only supported on qemu.
 ##   platforms: qemu
 ##   # A few extra disks to set up LVM on.
@@ -14,9 +14,9 @@ set -xeuo pipefail
 LVMDEVICESFILENAME="system.devices"
 LVMDEVICESFILE="/etc/lvm/devices/${LVMDEVICESFILENAME}"
 
-# Check that coreos-populate-lvmdevices did run
-if [ ! -e /var/lib/coreos-populate-lvmdevices.stamp ]; then
-  fatal "coreos-populate-lvmdevices didn't run"
+# Check that nestos-populate-lvmdevices did run
+if [ ! -e /var/lib/nestos-populate-lvmdevices.stamp ]; then
+  fatal "nestos-populate-lvmdevices didn't run"
 fi
 
 case "${AUTOPKGTEST_REBOOT_MARK:-}" in
@@ -37,7 +37,7 @@ case "${AUTOPKGTEST_REBOOT_MARK:-}" in
 
       # Remove the stamp file to force the "migration" to happen on
       # next boot.
-      rm -f /var/lib/coreos-populate-lvmdevices.stamp
+      rm -f /var/lib/nestos-populate-lvmdevices.stamp
 
       # reboot to simulate running migration for first time on a
       # system with pre-existing LVM devices

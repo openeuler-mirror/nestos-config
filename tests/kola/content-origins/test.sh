@@ -14,10 +14,11 @@ set -xeuo pipefail
 . "$KOLA_EXT_DATA/commonlib.sh"
 
 . /usr/lib/os-release
-
+ 
 case "${ID}" in
     fedora) vendor='Fedora Project';;
     rhel|rhcos) vendor='Red Hat, Inc.';;
+    nestos) vendor='NestOS';; #or openeuler?
     *) echo "Unknown operating system ID=${ID}; skipping this test"; exit 0;;
 esac
 

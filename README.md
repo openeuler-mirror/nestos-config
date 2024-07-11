@@ -10,7 +10,7 @@
 
 - **manifest文件夹** 包含很多.yaml配置文件，软件包按照功能/使用场景的不同，分类放在这些配置文件中。
 - **overlay.d文件夹** 中的文件可以根据其目录结构覆盖软件包提供的初始文件。
-- **manifest.ymal**  包含用于更新的stream名称以及releasever。
+- **manifest.yaml**  包含用于更新的stream名称以及releasever。
 
 其他配置文件中具体参数的使用方法，如在使用过程中仍有疑问，可以提交issue至本仓库，或加入sig-CloudNative或sig-K8sDistro与开发者们一起交流。
 

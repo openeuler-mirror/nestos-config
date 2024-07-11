@@ -12,37 +12,37 @@
 set -eu -o pipefail
 #set -x
 
-vmname="coreos-nettest"
+vmname="nestos-nettest"
 
 butane_common=\
-'variant: fcos
+'variant: nestos
 version: 1.0.0
 passwd:
   users:
-    - name: core
+    - name: nest
       ssh_authorized_keys:
         - $sshpubkey
 systemd:
   units:
     - name: serial-getty@ttyS0.service
       dropins:
-      - name: autologin-core.conf
+      - name: autologin-nest.conf
         contents: |
           [Service]
           # Override Execstart in main unit
           ExecStart=
           # Add new Execstart with `-` prefix to ignore failure
-          ExecStart=-/usr/sbin/agetty --autologin core --noclear %I $TERM
+          ExecStart=-/usr/sbin/agetty --autologin nest --noclear %I $TERM
           TTYVTDisallocate=no
 storage:
   files:
     # pulling from a remote verifies we have networking in the initramfs
-    - path: /home/core/remotefile
+    - path: /home/nest/remotefile
       mode: 0600
       user:
-        name: core
+        name: nest
       group:
-        name: core
+        name: nest
       contents:
         source: https://raw.githubusercontent.com/coreos/fedora-coreos-config/8b08bd030ef3968d00d4fea9a0fa3ca3fbabf852/COPYING
         verification:
@@ -311,7 +311,7 @@ check_vm() {
     fi
 
     export SSH_AUTH_SOCK=  # since we're providing our own key
-    local ssh="ssh -q $ssh_config -l core $ip"
+    local ssh="ssh -q $ssh_config -l nest $ip"
 
     # Wait for system to come up
     try=10
@@ -467,11 +467,11 @@ main() {
     local nameserverdhcp='192.168.122.1'
     local nameserverstatic='208.67.222.222' # opendns server
     local initramfshostname='initrdhost'
-    local kernel="${PWD}/coreos-nettest-kernel"
-    local initramfs="${PWD}/coreos-nettest-initramfs"
-    local sshkeyfile="${PWD}/coreos-nettest-sshkey"
-    local sshpubkeyfile="${PWD}/coreos-nettest-sshkey.pub"
-    local ignitionfile="${PWD}/coreos-nettest-config.ign"
+    local kernel="${PWD}/nestos-nettest-kernel"
+    local initramfs="${PWD}/nestos-nettest-initramfs"
+    local sshkeyfile="${PWD}/nestos-nettest-sshkey"
+    local sshpubkeyfile="${PWD}/nestos-nettest-sshkey.pub"
+    local ignitionfile="${PWD}/nestos-nettest-config.ign"
     local sshpubkey
     local butane
 
@@ -516,16 +516,16 @@ EOF
         rhcos=0
         nic0=ens2
         nic1=ens3
-        bls_file=ostree-1-fedora-coreos.conf
+        bls_file=ostree-1-NestOS-For-Container.conf
     fi
     nics="${nic0},${nic1}"
 
     #Here is an example where you can quickly hack the initramfs and
     #add files that you want to use to test (when developing). For
-    # example if you want to test out coreos-teardown-initramfs-network.sh
+    # example if you want to test out nestos-teardown-initramfs-network.sh
     # you can do:
    #mkdir -p /tmp/fakeroot/usr/sbin
-   #cp /path/to/ignition-dracut/dracut/30ignition/coreos-teardown-initramfs-network.sh /tmp/fakeroot/usr/sbin/coreos-teardown-initramfs-network
+   #cp /path/to/ignition-dracut/dracut/30ignition/nestos-teardown-initramfs-network.sh /tmp/fakeroot/usr/sbin/nestos-teardown-initramfs-network
    #(cd /tmp/fakeroot; find . | cpio -o -c) >> $initramfs
 
     # Grab kernel arguments from the disk and use them
@@ -602,23 +602,23 @@ EOF
         destroy_vm
     fi
 
-    # Do a `coreos.no_persist_ip` check. In this case we won't pass any networking
+    # Do a `nestos.no_persist_ip` check. In this case we won't pass any networking
     # configuration via Ignition either, so we'll just end up with DHCP and a
     # static hostname that is unset (`n/a`).
-    echo -e "\n###### Testing coreos.no_persist_ip disables initramfs propagation\n"
+    echo -e "\n###### Testing nestos.no_persist_ip disables initramfs propagation\n"
     create_ignition_file "$butane_none" $ignitionfile
-    start_vm $qcow $ignitionfile $kernel $initramfs "${initramfs_static_nic0} coreos.no_persist_ip"
+    start_vm $qcow $ignitionfile $kernel $initramfs "${initramfs_static_nic0} nestos.no_persist_ip"
     check_vm 'dhcp' 2 0 $ip $nic0 'n/a' $nameserverdhcp $sshkeyfile
     reboot_vm
     check_vm 'dhcp' 2 0 $ip $nic0 'n/a' $nameserverdhcp $sshkeyfile
     destroy_vm
 
-    # Do a `coreos.force_persist_ip` check. In this case we won't pass any networking
+    # Do a `nestos.force_persist_ip` check. In this case we won't pass any networking
     # configuration via Ignition either, so we'll just end up with DHCP and a
     # static hostname that is unset (`n/a`).
-    echo -e "\n###### Testing coreos.force_persist_ip forces initramfs propagation\n"
+    echo -e "\n###### Testing nestos.force_persist_ip forces initramfs propagation\n"
     create_ignition_file "$butane_static_nic0" $ignitionfile
-    start_vm $qcow $ignitionfile $kernel $initramfs "${initramfs_static_bond0} coreos.force_persist_ip"
+    start_vm $qcow $ignitionfile $kernel $initramfs "${initramfs_static_bond0} nestos.force_persist_ip"
     check_vm 'none' 1 3 $ip bond0 $ignitionhostname $nameserverstatic $sshkeyfile
     reboot_vm
     check_vm 'none' 1 3 $ip bond0 $ignitionhostname $nameserverstatic $sshkeyfile

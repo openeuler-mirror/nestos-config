@@ -8,15 +8,15 @@
 ##   # We use net.ifnames=0 to disable consistent network naming here because on
 ##   # different firmwares (BIOS vs UEFI) the NIC names are different.
 ##   # See https://github.com/coreos/fedora-coreos-tracker/issues/1060
-##   appendKernelArgs: "ip=10.10.10.10::10.10.10.1:255.255.255.0:myhostname:eth1:none:8.8.8.8 net.ifnames=0 coreos.force_persist_ip"
-##   description: Verify that coreos.force_persist_ip will force propagating
+##   appendKernelArgs: "ip=10.10.10.10::10.10.10.1:255.255.255.0:myhostname:eth1:none:8.8.8.8 net.ifnames=0 nestos.force_persist_ip"
+##   description: Verify that nestos.force_persist_ip will force propagating
 ##     kernel argument based networking configuration into the real root.
 
 # Setup configuration for a single NIC with two different ways:
-# - kargs provide static network config for eth1 and also coreos.force_persist_ip
+# - kargs provide static network config for eth1 and also nestos.force_persist_ip
 # - Ignition provides dhcp network config for eth1
 # Expected result:
-# - with coreos.force_persist_ip ip=kargs win, verify that
+# - with nestos.force_persist_ip ip=kargs win, verify that
 #   eth1 has the static IP address via kargs
 # https://bugzilla.redhat.com/show_bug.cgi?id=1958930#c29
 
@@ -40,8 +40,8 @@ fi
 ok "find ${syscon}/${nic_name}.nmconnection"
 
 # Verify logs
-if ! journalctl -b 0 -u coreos-teardown-initramfs | \
-     grep -q "info: coreos.force_persist_ip detected: will force network config propagation"; then
+if ! journalctl -b 0 -u nestos-teardown-initramfs | \
+     grep -q "info: nestos.force_persist_ip detected: will force network config propagation"; then
   fatal "Error: force network config propagation not work"
 fi
 ok "force network config propagation"

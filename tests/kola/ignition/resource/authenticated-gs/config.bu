@@ -1,8 +1,8 @@
 # Objects accessible by any authenticated GS user, such as the credentials
 # associated with the GCE instance
 
-variant: fcos
-version: 1.2.0
+variant: nestos
+version: 1.0.0
 ignition:
   config:
     merge:

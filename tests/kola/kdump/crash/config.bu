@@ -1,5 +1,5 @@
-variant: fcos
-version: 1.4.0
+variant: nestos
+version: 1.0.0
 kernel_arguments:
   should_exist:
     # We need to make sure we have a large enough crashkernel for FCOS

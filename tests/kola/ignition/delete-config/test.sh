@@ -8,7 +8,7 @@
 # There are 2 services:
 # 1)ignition-delete-config.service, which deletes Ignition
 # configs from VMware and VirtualBox on first boot.
-# 2)coreos-ignition-delete-config.service, do the same thing
+# 2)nestos-ignition-delete-config.service, do the same thing
 # on existing machines on upgrade, using a stamp file in /var/lib
 # to avoid multiple runs.
 # Ideally we'd test on virtualbox and vmware, but we don't have tests
@@ -36,13 +36,13 @@ case "${AUTOPKGTEST_REBOOT_MARK:-}" in
     if [ $(systemctl is-active ignition-delete-config ||:) != active ]; then
         fatal "ignition-delete-config didn't succeed on first boot"
     fi
-    if [ $(systemctl is-active coreos-ignition-delete-config ||:) != active ]; then
-        fatal "coreos-ignition-delete-config didn't succeed on first boot"
+    if [ $(systemctl is-active nestos-ignition-delete-config ||:) != active ]; then
+        fatal "nestos-ignition-delete-config didn't succeed on first boot"
     fi
     ok "First boot OK"
 
     # Reset state and reboot
-    rm /var/lib/coreos-ignition-delete-config.stamp
+    rm /var/lib/nestos-ignition-delete-config.stamp
     /tmp/autopkgtest-reboot upgrade
     ;;
 
@@ -56,8 +56,8 @@ upgrade)
     if [ $(systemctl is-active ignition-delete-config ||:) != inactive ]; then
         fatal "ignition-delete-config ran on upgrade boot"
     fi
-    if [ $(systemctl is-active coreos-ignition-delete-config ||:) != active ]; then
-        fatal "coreos-ignition-delete-config didn't succeed on upgrade boot"
+    if [ $(systemctl is-active nestos-ignition-delete-config ||:) != active ]; then
+        fatal "nestos-ignition-delete-config didn't succeed on upgrade boot"
     fi
     ok "Upgrade boot OK"
 
@@ -74,13 +74,13 @@ steady-state)
     if [ $(systemctl is-active ignition-delete-config ||:) != inactive ]; then
         fatal "ignition-delete-config ran on steady-state boot"
     fi
-    if [ $(systemctl is-active coreos-ignition-delete-config ||:) != inactive ]; then
-        fatal "coreos-ignition-delete-config ran on steady-state boot"
+    if [ $(systemctl is-active nestos-ignition-delete-config ||:) != inactive ]; then
+        fatal "nestos-ignition-delete-config ran on steady-state boot"
     fi
     ok "Steady-state boot OK"
 
     # Reset state for masked unit and reboot
-    rm /var/lib/coreos-ignition-delete-config.stamp
+    rm /var/lib/nestos-ignition-delete-config.stamp
     systemctl mask ignition-delete-config.service
     /tmp/autopkgtest-reboot masked
     ;;
@@ -95,8 +95,8 @@ masked)
     if [ $(systemctl is-active ignition-delete-config ||:) != inactive ]; then
         fatal "ignition-delete-config ran on masked boot"
     fi
-    if [ $(systemctl is-active coreos-ignition-delete-config ||:) != inactive ]; then
-        fatal "coreos-ignition-delete-config ran on masked boot"
+    if [ $(systemctl is-active nestos-ignition-delete-config ||:) != inactive ]; then
+        fatal "nestos-ignition-delete-config ran on masked boot"
     fi
     ok "Masked unit OK"
     ;;

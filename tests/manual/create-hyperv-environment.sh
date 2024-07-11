@@ -10,10 +10,10 @@ AZ="us-east-2a"
 AMI_DESC="Windows_Server-2022-English-Full-Base"
 # least expensive Windows metal option
 INSTANCE_TYPE="m5zn.metal"
-VPC="coreos-hyperv"
-SG="coreos-hyperv"
-INSTANCE="coreos-hyperv"
-KEY_PREFIX="coreos-hyperv"
+VPC="nestos-hyperv"
+SG="nestos-hyperv"
+INSTANCE="nestos-hyperv"
+KEY_PREFIX="nestos-hyperv"
 DISK_GB=100
 DISP_W=1280
 DISP_H=950

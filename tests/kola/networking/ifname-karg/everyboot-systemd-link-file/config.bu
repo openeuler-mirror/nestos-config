@@ -1,5 +1,5 @@
-variant: fcos
-version: 1.4.0
+variant: nestos
+version: 1.0.0
 kernel_arguments:
   should_exist:
     # Persistently set the ifname kernel argument to set the given MAC to the

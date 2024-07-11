@@ -1,5 +1,5 @@
-variant: fcos
-version: 1.2.0
+variant: nestos
+version: 1.0.0
 storage:
   directories:
     # This is for verifying that `kubernetes_file_t` labeled files can be

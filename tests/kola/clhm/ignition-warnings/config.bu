@@ -1,5 +1,5 @@
-variant: fcos
-version: 1.1.0
+variant: nestos
+version: 1.0.0
 systemd:
   # This systemd unit doesn't have the Install
   # section in it, so as part of the validation

@@ -73,7 +73,7 @@ get_booted_deployment_json() {
     rpm-ostree status  --json | jq -r '.deployments[] | select(.booted == true)'
 }
 version=$(get_booted_deployment_json | jq -r '.version')
-stream=$(get_booted_deployment_json | jq -r '.["base-commit-meta"]["fedora-coreos.stream"]')
+stream=$(get_booted_deployment_json | jq -r '.["base-commit-meta"]["nestos.stream"]')
 
 # Pick up the last release for the current stream from the update server
 test -f /srv/updateinfo.json || \
@@ -94,7 +94,7 @@ fi
 target_stream=$stream
 test -f /etc/target_stream && target_stream=$(< /etc/target_stream)
 test -f /srv/builds.json || \
-    curl -L "https://builds.coreos.fedoraproject.org/prod/streams/${target_stream}/builds/builds.json" > /srv/builds.json
+    curl -L "https://nestos.org.cn/prod/${target_stream}/builds/builds.json" > /srv/builds.json
 target_version=$(jq -r .builds[0].id /srv/builds.json)
 
 
@@ -121,7 +121,7 @@ fix-update-url() {
     # We switched to non stg URL in zincati v0.0.10 [1]. For older clients
     # we need to update the runtime configuration of zincati to get past the problem.
     # [1] https://github.com/coreos/zincati/commit/1d73801ccd015cdce89f082cb1eeb9b4b8335760
-    cat <<'EOF' > /run/zincati/config.d/50-fedora-coreos-cincinnati.toml
+    cat <<'EOF' > /run/zincati/config.d/50-nestos-cincinnati.toml
 [cincinnati]
 base_url= "https://updates.coreos.fedoraproject.org"
 EOF
@@ -132,7 +132,7 @@ fix-allow-downgrade() {
     # Older FCOS will complain about an upgrade target being 'chronologically older than current'
     # This is documented in https://github.com/coreos/fedora-coreos-tracker/issues/481
     # We can workaround the problem via a config dropin:
-    cat <<'EOF' > /run/zincati/config.d/99-fedora-coreos-allow-downgrade.toml
+    cat <<'EOF' > /run/zincati/config.d/99-nestos-allow-downgrade.toml
 updates.allow_downgrade = true
 EOF
     need_zincati_restart='true'

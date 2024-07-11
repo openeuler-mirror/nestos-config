@@ -20,24 +20,13 @@ ExecStart=-/sbin/agetty --autologin core -o '-p -f core' ${args} %I \$TERM
 EOF
 }
 
-quiet_kernel_console_messages() {
-    cat <<'EOF' > /etc/sysctl.d/20-nestos-autologin-kernel-printk.conf
-# Raise console message logging level from DEBUG (7) to WARNING (4)
-# so that kernel debug message don't get interspersed on the console
-# that
-# may frustrate a user trying to interactively do an install with
-# nmtui and nestos-installer.
-kernel.printk=4
-EOF
-}
-
 write_interactive_live_motd() {
     # Write motd to a tmp file and not directly to /etc/motd because
     # SELinux denies write from init_t to etc_t
     cat <<EOF > /run/interactive-live-motd
 
 ###########################################################################
-Welcome to the NestOS live environment. This system is running completely
+Welcome to the nestos live environment. This system is running completely
 from memory, making it a good candidate for hardware discovery and
 installing persistently to disk. Here is an example of running an install
 to disk via nestos-installer:
@@ -50,9 +39,6 @@ that configuration persist into the installed system by passing the
 '--copy-network' argument to 'nestos-installer install'. Please run
 'nestos-installer install --help' for more information on the possible
 install options.
-
-If you want a quick install,you can also use the 'sudo installnestos' command
-for a guided install instead of the above.
 ###########################################################################
 
 EOF
@@ -95,13 +81,6 @@ fi
 write_dropin "getty@.service"        "--noclear"
 # Also autologin on serial console if someone enables that
 write_dropin "serial-getty@.service" "--keep-baud 115200,38400,9600"
-
-# When the installer runs a lot of things happen on the system (audit
-# messages from running via sudo, re-reading partition table messages,
-# mounting filesystem messages, etc.). Quieting the verbosity of the
-# kernel console will help us keep our sanity.
-quiet_kernel_console_messages
-
 
 # Write an motd that will let the user know about the live environment
 # and what is possible.

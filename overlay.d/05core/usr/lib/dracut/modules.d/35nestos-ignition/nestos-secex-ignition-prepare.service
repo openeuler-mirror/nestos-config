@@ -1,7 +1,7 @@
 # This service is enabled by nestos-diskful-generator
 
 [Unit]
-Description=NestOS Secex Ignition Config Decryptor
+Description=NestOS Secex Ignition Config Preparation
 ConditionPathExists=/etc/initrd-release
 ConditionPathExists=/run/nestos/secure-execution
 DefaultDependencies=false
@@ -17,4 +17,4 @@ Before=ignition-fetch-offline.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/sbin/nestos-secex-ignition-decrypt
+ExecStart=/usr/sbin/nestos-secex-ignition-prepare

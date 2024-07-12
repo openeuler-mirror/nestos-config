@@ -83,10 +83,10 @@ install() {
 
     # IBM Secure Execution. Ignition config for reencryption of / and /boot
     inst_simple "$moddir/01-secex.ign" /usr/lib/nestos/01-secex.ign
-    inst_simple "$moddir/nestos-secex-ignition-decrypt.service" \
-        "$systemdsystemunitdir/nestos-secex-ignition-decrypt.service"
-    inst_script "$moddir/nestos-secex-ignition-decrypt.sh" \
-        "/usr/sbin/nestos-secex-ignition-decrypt"
+    inst_simple "$moddir/nestos-secex-ignition-prepare.service" \
+        "$systemdsystemunitdir/nestos-secex-ignition-prepare.service"
+    inst_script "$moddir/nestos-secex-ignition-prepare.sh" \
+        "/usr/sbin/nestos-secex-ignition-prepare"
 
     inst_multiple jq blkid
     inst_script "$moddir/nestos-rootflags.sh" \

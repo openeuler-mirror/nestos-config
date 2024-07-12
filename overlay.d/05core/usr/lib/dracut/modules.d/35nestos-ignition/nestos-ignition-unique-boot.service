@@ -1,5 +1,5 @@
 [Unit]
-Description=NestOS Ensure Unique Boot Filesystem
+Description=NestOS Ignition Ensure Unique Boot Filesystem
 ConditionPathExists=/etc/initrd-release
 OnFailure=emergency.target
 OnFailureJobMode=isolate

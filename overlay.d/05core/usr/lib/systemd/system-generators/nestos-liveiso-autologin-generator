@@ -16,7 +16,7 @@ write_dropin() {
     cat > "${out_dir}/10-autologin.conf" <<EOF
 [Service]
 ExecStart=
-ExecStart=-/sbin/agetty --autologin core -o '-p -f core' ${args} %I \$TERM
+ExecStart=-/sbin/agetty --autologin nest -o '-p -f nest' ${args} %I \$TERM
 EOF
 }
 
@@ -26,7 +26,7 @@ write_interactive_live_motd() {
     cat <<EOF > /run/interactive-live-motd
 
 ###########################################################################
-Welcome to the nestos live environment. This system is running completely
+Welcome to the NestOS live environment. This system is running completely
 from memory, making it a good candidate for hardware discovery and
 installing persistently to disk. Here is an example of running an install
 to disk via nestos-installer:

@@ -70,7 +70,6 @@ postprocess:
 
     list_broken_symlinks_folders=(
       '/etc/alternatives/'
-      '/usr/lib/.build-id/'
     )
 
     # It is not possible to remove files from usr after first boot so that is

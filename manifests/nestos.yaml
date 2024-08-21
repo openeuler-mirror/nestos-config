@@ -28,6 +28,12 @@ packages:
   # Updates
   - zincati
 
+ostree-layers:
+  - overlay/05core
+  - overlay/11install
+  - overlay/15nestos
+  - overlay/20platform-chrony
+
 etc-group-members:
   # Add the docker group to /etc/group
   # https://github.com/coreos/fedora-coreos-tracker/issues/2

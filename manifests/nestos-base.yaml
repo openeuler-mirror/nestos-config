@@ -57,7 +57,7 @@ postprocess:
     systemctl mask dnsmasq.service
 
 packages:
-  - kernel
+  - NestOS-kernel
   # Security
   - polkit
   # Containers

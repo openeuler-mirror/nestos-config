@@ -56,6 +56,11 @@ postprocess:
     #!/usr/bin/env bash
     systemctl mask dnsmasq.service
 
+  # Some services require /etc/issue.d dir, which is pre created here
+  - |
+    #!/usr/bin/env bash
+    mkdir /etc/issue.d
+
 packages:
   - NestOS-kernel
   # Security

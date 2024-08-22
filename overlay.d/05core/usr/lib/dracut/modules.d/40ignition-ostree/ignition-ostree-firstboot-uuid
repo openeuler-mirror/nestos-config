@@ -27,7 +27,8 @@ esac
 
 if [ "${TYPE}" == "${orig_type}" ] && [ "${UUID}" == "${orig_uuid}" ]; then
   case "${TYPE}" in
-    ext4) tune2fs -U random "${target}"    ;;
+    # tune2fs requires checking the file system before running
+    ext4) e2fsck -fy "${target}"; tune2fs -U random "${target}" ;;
     xfs) xfs_admin -U generate "${target}" ;;
     *) echo "unexpected filesystem type ${TYPE}" 1>&2; exit 1 ;;
   esac

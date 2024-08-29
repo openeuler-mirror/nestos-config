@@ -1,18 +1,9 @@
-# Include rpm-ostree + kernel + bootloader
-include: bootable-rpm-ostree.yaml
-
 # Modern defaults we want
 boot-location: modules
 tmp-is-dir: true
 
 # Required by Ignition, and makes the system not compatible with Anaconda
 machineid-compat: false
-
-packages:
-  - ignition
-  - dracut-network
-  # for encryption
-  - clevis  clevis-dracut clevis-systemd
 
 remove-from-packages:
   # We don't want systemd-firstboot.service. It conceptually conflicts with

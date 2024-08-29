@@ -19,14 +19,8 @@ automatic-version-prefix: "${releasever}.<date:%Y%m%d>"
 mutate-os-release: "${releasever}"
 
 # All NestOS streams share the same pool for locked files.
-lockfile-repos:
-  - nestos
-
-packages:
-  # CL ships this.  
-  - docker-engine
-  # Updates
-  - zincati
+# 此字段移入rpmlist.yaml由CI动态生成
+# lockfile-repos:
 
 ostree-layers:
   - overlay/05core

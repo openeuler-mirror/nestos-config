@@ -1,8 +1,5 @@
 # Integration with https://github.com/coreos/bootupd
 # xref https://github.com/coreos/fedora-coreos-tracker/issues/510
-packages:
-  - bootupd
-
 postprocess:
   - |
     #!/bin/bash

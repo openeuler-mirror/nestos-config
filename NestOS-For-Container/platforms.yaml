@@ -9,9 +9,6 @@
 # own defaults.  Note that coreos-installer install --console will
 # completely override any GRUB commands specified here.
 #
-# s390x doesn't use GRUB and requires running zipl after updating kargs,
-# so it can't be added to this file without additional development work.
-#
 # All architectures, platforms, and fields are optional.
 aarch64:
   openstack:

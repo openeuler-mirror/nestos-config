@@ -4,11 +4,10 @@
 
 include:
   - ignition-and-ostree.yaml
-  - file-transfer.yaml
-  - networking-tools.yaml
   - system-configuration.yaml
   - user-experience.yaml
   - bootupd.yaml
+  - rpmlist.yaml
 
 # Be minimal
 recommends: false
@@ -60,54 +59,3 @@ postprocess:
   - |
     #!/usr/bin/env bash
     mkdir /etc/issue.d
-
-packages:
-  - NestOS-kernel
-  # Security
-  - polkit
-  # Containers
-  - systemd-container catatonit
-  - fuse-overlayfs slirp4netns
-  # support for old style CNI networks and name resolution for
-  # podman containers with CNI networks
-  # https://github.com/coreos/fedora-coreos-tracker/issues/519
-  # https://github.com/coreos/fedora-coreos-tracker/issues/1128#issuecomment-1071338097
-  - containernetworking-plugins podman-plugins dnsmasq
-  # Since we need `containernetworking-plugins` installed to continue
-  # to support CNI networks we need to also explicitly install
-  # `netavark` so we get both of them installed since both of them
-  # provide `container-network-stack`.
-  # https://github.com/coreos/fedora-coreos-tracker/issues/1128#issuecomment-1071458717
-  - netavark
-  # Minimal NFS client
-  - nfs-utils-min
-  # Active Directory support
-  - adcli
-  # WireGuard https://github.com/coreos/fedora-coreos-tracker/issues/362
-  - wireguard-tools
-  # Storage
-  - btrfs-progs
-  - WALinuxAgent-udev
-  # Allow communication between sudo and SSSD
-  # for caching sudo rules by SSSD.
-  # https://github.com/coreos/fedora-coreos-tracker/issues/445
-  - libsss_sudo
-  # SSSD; we only ship a subset of the backends
-  - sssd-client sssd-ad sssd-ipa sssd-krb5 sssd-ldap
-  # Used by admins interactively
-  - attr
-  - openssl
-  # Provides terminal tools like clear, reset, tput, and tset
-  - ncurses
-  # file-transfer: note fuse-sshfs is not in RHEL
-  # so we can't put it in file-transfer.yaml
-  - fuse-sshfs
-  # Improved MOTD experience
-  - console-login-helper-messages-motdgen
-  # i18n
-  - kbd
-  # This thing is crying out to be pulled into systemd, but that hasn't happened
-  # yet.  Also we may want to add to rpm-ostree something like arch negation;
-  # https://serverfault.com/questions/513807/is-there-still-a-use-for-irqbalance-on-modern-hardware
-  # https://access.redhat.com/solutions/41535
-  - irqbalance

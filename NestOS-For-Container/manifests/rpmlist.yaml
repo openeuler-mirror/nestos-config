@@ -1,0 +1,111 @@
+lockfile-repos:
+- OS
+- everything
+- EPOL
+- update
+- NestOS-For-Container
+- NestOS_For-Container_extra
+
+packages:
+- NestOS-kernel
+- systemd
+- systemd-container
+- rpm-ostree
+- ignition 
+- zincati
+- afterburn afterburn-dracut
+- nestos-installer nestos-installer-bootinfra
+- ssh-key-dir
+- zram-generator
+- git-core
+- openssl
+- linux-firmware
+- nss-altfiles
+- fwupd
+- efibootmgr shim
+- NetworkManager hostname
+- NetworkManager-tui
+- NetworkManager-team
+- NetworkManager-cloud-setup 
+- iproute 
+- iptables nftables
+- socat net-tools bind-utils
+- ipcalc
+- gnupg2
+- rsync
+- dracut-network
+- clevis  clevis-dracut clevis-systemd
+- catatonit
+- fuse-overlayfs
+- slirp4netns
+- containernetworking-plugins
+- iSulad
+- isula-build
+- podman
+- skopeo
+- toolbox
+- crun
+- docker-engine
+- podman-plugins
+- dnsmasq
+- netavark
+- polkit
+- nfs-utils-min
+- adcli
+- wireguard-tools
+- btrfs-progs
+- libsss_sudo
+- sssd-client sssd-ad sssd-ipa sssd-krb5 sssd-ldap
+- attr
+- ncurses
+- fuse-sshfs
+- console-login-helper-messages-motdgen
+- console-login-helper-messages-issuegen
+- console-login-helper-messages-profile
+- kbd
+- irqbalance
+- curl
+- audit
+- chrony
+- cifs-utils
+- cloud-utils-growpart
+- cryptsetup
+- device-mapper-multipath
+- e2fsprogs
+- lvm2
+- mdadm
+- sg3_utils
+- xfsprogs
+- passwd
+- shadow-utils
+- acl
+- selinux-policy-targeted
+- logrotate
+- stalld
+- tzdata
+- bash-completion
+- coreutils
+- jq
+- less
+- sudo
+- vim-minimal
+- bsdtar
+- bzip2
+- gzip
+- tar
+- xz
+- zstd
+- kexec-tools
+- openssh-clients openssh-server
+- nvme-cli
+- lsof
+- libnetfilter_cthelper
+- libnetfilter_cttimeout
+- libnetfilter_queue
+- conntrack-tools
+
+packages-aarch64:
+- grub2-efi-aa64
+packages-x86_64:
+- grub2 grub2-efi-x64
+- microcode_ctl

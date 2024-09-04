@@ -14,10 +14,12 @@ packages:
 - ignition 
 - zincati
 - afterburn afterburn-dracut
+- bootupd
 - nestos-installer nestos-installer-bootinfra
 - ssh-key-dir
 - zram-generator
 - git-core
+- openEuler-repos
 - openssl
 - linux-firmware
 - nss-altfiles

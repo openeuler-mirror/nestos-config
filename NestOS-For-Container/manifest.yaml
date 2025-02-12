@@ -1,6 +1,6 @@
 variables:
   stream: 2403-LTS
 
-releasever: "24.03-LTS"
+releasever: "24.03-LTS-SP1"
 
 include: manifests/nestos.yaml

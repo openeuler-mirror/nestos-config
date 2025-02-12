@@ -1,8 +1,6 @@
 lockfile-repos:
-- OS
 - everything
 - EPOL
-- update
 - NestOS-For-Container
 - NestOS_For-Container_extra
 

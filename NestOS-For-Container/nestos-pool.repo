@@ -14,7 +14,7 @@ gpgkey=https://repo.openeuler.org/openEuler-24.03-LTS-SP1/OS/$basearch/RPM-GPG-K
 
 [NestOS_For-Container]
 name=NestOS_For-Container_20250115
-baseurl=https://repo.openeuler.org/openEuler-24.03-LTS-SP1/EPOL/multi_version/NestOS/For-Container/20240903/$basearch/
+baseurl=https://repo.openeuler.org/openEuler-24.03-LTS-SP1/EPOL/multi_version/NestOS/For-Container/20250115/$basearch/
 enabled=1
 gpgcheck=1
 gpgkey=https://repo.openeuler.org/openEuler-24.03-LTS-SP1/OS/$basearch/RPM-GPG-KEY-openEuler
